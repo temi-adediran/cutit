@@ -26,14 +26,10 @@ class UrlsController < ApplicationController
   def create
     @url = Url.new(url_params)
 
-    respond_to do |format|
-      if @url.save
-        format.html { redirect_to @url, notice: 'Url was successfully created.' }
-        format.json { render :show, status: :created, location: @url }
-      else
-        format.html { render :new }
-        format.json { render json: @url.errors, status: :unprocessable_entity }
-      end
+    if @url.save
+      redirect_to urls_path, notice: 'Url was successfully created.'
+    else
+      redirect_to urls_path, notice: "Errors, errors everywhere!!!!!!!"
     end
   end
 

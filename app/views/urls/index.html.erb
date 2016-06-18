@@ -1,29 +1,30 @@
-<p id="notice"><%= notice %></p>
+<div class="jumbotron intro">
+  <h1>
+    Shorten Urls Like a Boss!
+  </h1>
 
-<h1>Listing Urls</h1>
+  <div class="row">
+    <div class="col-sm-6 col-sm-offset-3">
 
-<table>
-  <thead>
-    <tr>
-      <th>Long url</th>
-      <th>Short url</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+      <%= form_for :url, url: "/urls", html: { class: "form-inline" } do |f| %>
+        <div class="form-group">
+          <div class="input-group">
+            <%= f.text_field :long_url, class: "form-control", placeholder: "Enter a link", required: true %>
 
-  <tbody>
-    <% @urls.each do |url| %>
-      <tr>
-        <td><%= url.long_url %></td>
-        <td><%= url.short_url %></td>
-        <td><%= link_to 'Show', url %></td>
-        <td><%= link_to 'Edit', edit_url_path(url) %></td>
-        <td><%= link_to 'Destroy', url, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+            <div class="input-group-addon">
+              <%= f.button "Cut it" %>
+            </div>
 
-<br>
+          </div>
+        </div>
+      <% end %>
 
-<%= link_to 'New Url', new_url_path %>
+       <% if flash[:notice].present? %>
+          <p class="text-center">
+            <%= flash[:notice] %>
+          </p>
+        <% end %>
+
+    </div>
+  </div>
+</div>
