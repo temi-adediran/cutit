@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
+  root 'urls#index'
+
+  get "/:short_url" => "urls#redirect_short_url", as: :short_url
+
   resources :users
   resources :urls
-  
-  root 'urls#index'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

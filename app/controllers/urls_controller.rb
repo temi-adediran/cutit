@@ -27,9 +27,10 @@ class UrlsController < ApplicationController
     @url = Url.new(url_params)
 
     if @url.save
-      redirect_to urls_path, notice: 'Url was successfully created.'
+      flash[:short_url] = "#{root_url}#{@url.short_url}"
+      redirect_to root_path
     else
-      redirect_to urls_path, notice: "Errors, errors everywhere!!!!!!!"
+      redirect_to urls_path, notice: "Please enter a valid url"
     end
   end
 
@@ -38,7 +39,7 @@ class UrlsController < ApplicationController
   def update
     respond_to do |format|
       if @url.update(url_params)
-        format.html { redirect_to @url, notice: 'Url was successfully updated.' }
+        format.html { redirect_to @url, notice: "Url was successfully updated." }
         format.json { render :show, status: :ok, location: @url }
       else
         format.html { render :edit }
@@ -52,9 +53,21 @@ class UrlsController < ApplicationController
   def destroy
     @url.destroy
     respond_to do |format|
-      format.html { redirect_to urls_url, notice: 'Url was successfully destroyed.' }
+      format.html { redirect_to urls_url, notice: "Url was successfully destroyed." }
       format.json { head :no_content }
     end
+  end
+
+  def redirect_short_url
+    short_url = params[:short_url]
+    url = Url.find_by(short_url: short_url)
+
+    if url
+      redirect_to url.long_url, status: 301
+    else
+      redirect_to root_path, notice: "Url does not exist"
+    end
+
   end
 
   private
