@@ -1,14 +1,13 @@
 class UrlsController < ApplicationController
   before_action :set_url, only: [:show, :edit, :update, :destroy]
+  before_action :redirect_to_dashboard, only: :index
 
   # GET /urls
-  # GET /urls.json
   def index
     @urls = Url.all
   end
 
   # GET /urls/1
-  # GET /urls/1.json
   def show
   end
 
@@ -22,7 +21,6 @@ class UrlsController < ApplicationController
   end
 
   # POST /urls
-  # POST /urls.json
   def create
     @url = Url.new(url_params)
 
@@ -78,6 +76,6 @@ class UrlsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def url_params
-      params.require(:url).permit(:long_url)
+      params.require(:url).permit(:long_url, :short_url)
     end
 end
