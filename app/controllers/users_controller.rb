@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  before_action :redirect_to_root, only: :show 
+  before_action :redirect_to_dashboard, only: :new
 
   def new
     @user = User.new
@@ -7,8 +9,9 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      redirect_to @user
+      log_in @user
       flash[:notice] = "Welcome to Cutit!"
+      redirect_to @user
     else
       render "new"
     end
