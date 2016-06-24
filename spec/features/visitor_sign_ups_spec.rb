@@ -1,13 +1,13 @@
 require 'rails_helper'
 
-RSpec.feature "VisitorSignUps", type: :feature do
-  scenario "with valid email and password" do
+RSpec.feature 'VisitorSignUps', type: :feature do
+  scenario 'with valid email and password' do
     sign_up_with 'temitope.fowotade@andela.com', 'mypassword'
 
     expect(page).to have_content('Log Out')
   end
 
-  scenario "with invalid email" do
+  scenario 'with invalid email' do
     sign_up_with 'temitope.fowotade', 'mypassword'
 
     expect(page).to have_content('Log In')
@@ -26,4 +26,3 @@ RSpec.feature "VisitorSignUps", type: :feature do
     click_button 'Sign Up'
   end
 end
-

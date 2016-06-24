@@ -18,6 +18,7 @@ class UrlsController < ApplicationController
   def new
     @url = Url.new
     @user_urls = current_user.urls.order(created_at: :desc)
+                             .paginate(page: params[:page], per_page: 10)
   end
 
   # Edit Urls/[:id]
@@ -53,7 +54,7 @@ class UrlsController < ApplicationController
   # DELETE /urls/1
   def destroy
     @url.destroy
-    redirect_to dashboard_path, notice: 'Url was successfully destroyed.' 
+    redirect_to dashboard_path, notice: 'Url was successfully destroyed.'
   end
 
   def redirect_short_url
