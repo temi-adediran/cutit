@@ -31,5 +31,24 @@
   </div>
 </div>
 
+<div class="row">
+  <div class="col-md-4">
+    <div class="panel panel-default">
+      <div class="panel-heading">Recently Added Links</div>
+      <ul class="list-group">
+        <% @recently_added_links.each do |url|%> 
+          <li class="list-group-item"><%= "#{root_url}#{url.short_url}" %></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
 
+  <div class="col-md-4">
+    <p>Influential users</p>
+  </div>
+
+  <div class="col-md-4">
+    <p>Popular links</p>
+  </div>
+</div>
 

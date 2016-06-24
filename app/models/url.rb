@@ -10,7 +10,7 @@ class Url < ActiveRecord::Base
             format: { with: URl_MATCH }
   validates :short_url, uniqueness: true, exclusion: { in: %w(signup login urls) }
 
-  # scope :recently_added, -> { order(created_at: :desc).limit(10) }
+  scope :recently_added, -> { order(created_at: :desc).limit(10) }
 
   def generate_short_url
     return if short_url.present?
