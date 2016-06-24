@@ -1,6 +1,6 @@
 class Url < ActiveRecord::Base
   belongs_to :user, counter_cache: true
-  after_create :generate_short_url, unless: :short_url_supplied
+  after_create :generate_short_url, unless: :short_url_exist
   before_save :convert_to_snake_case
 
   URl_MATCH = /\A(https?:\/\/)?([a-z0-9]+\.)?[a-z0-9\-]+\.[a-z]+.+[^\W\_]\z/
@@ -21,7 +21,7 @@ class Url < ActiveRecord::Base
     save
   end
 
-  def short_url_supplied
+  def short_url_exist
     short_url && !Url.exists?(short_url: short_url)
   end
 

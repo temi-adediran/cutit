@@ -25,20 +25,20 @@
             <%= url.long_url %>
           </td> 
           <td>
-            <%= "#{root_url}#{url.short_url}" %>
+            <a href='<%= "#{root_url}#{url.short_url}" %>' target="_blank">
+              <%= "#{root_url}#{url.short_url}" %>              
+            </a>
           </td>
           <td>
             <%= friendly_date url.created_at %>
           </td>
           <td>
-            <a href="#">view</a>
+            <%= link_to "details", url %>
           </td>
           <td>
-            <a href="#">edit</a>
+            <%= link_to "edit", edit_url_path(url) %>
           </td>
-          <td>
-            <a href="#">delete</a>
-          </td> 
+          
         </tr> 
       <% end %>
     <% end %>
