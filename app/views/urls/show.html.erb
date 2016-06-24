@@ -10,5 +10,21 @@
   <%= @url.short_url %>
 </p>
 
+<p>
+  <strong>Created:</strong>
+  <%= friendly_date @url.created_at %>
+</p>
+
+<p>
+  <strong>Number of clicks:</strong>
+  0
+</p>
+
+<p>
+  <strong>Link Status:</strong>
+  Active/Inactive
+</p>
+
+
 <%= link_to 'Edit', edit_url_path(@url) %> |
 <%= link_to 'Back', urls_path %>

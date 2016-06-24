@@ -3,24 +3,24 @@ class UrlsController < ApplicationController
   before_action :redirect_to_dashboard, only: :index
   before_action :redirect_to_root, only: :new
 
-  # GET /urls
+  # Homepage
   def index
     @urls = Url.all
     @recently_added_links = Url.recently_added
     @influential_users = User.influential_users
   end
 
-  # GET /urls/1
+  # Details Url/[:id]
   def show
   end
 
-  # GET /urls/new
+  # Dashboard
   def new
     @url = Url.new
     @user_urls = current_user.urls.order(created_at: :desc)
   end
 
-  # GET /urls/1/edit
+  # Edit Urls/[:id]
   def edit
   end
 
@@ -38,7 +38,6 @@ class UrlsController < ApplicationController
   end
 
   # PATCH/PUT /urls/1
-  # PATCH/PUT /urls/1.json
   def update
     respond_to do |format|
       if @url.update(url_params)
@@ -52,13 +51,9 @@ class UrlsController < ApplicationController
   end
 
   # DELETE /urls/1
-  # DELETE /urls/1.json
   def destroy
     @url.destroy
-    respond_to do |format|
-      format.html { redirect_to urls_url, notice: 'Url was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    redirect_to dashboard_path, notice: 'Url was successfully destroyed.' 
   end
 
   def redirect_short_url
@@ -74,12 +69,10 @@ class UrlsController < ApplicationController
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
   def set_url
     @url = Url.find(params[:id])
   end
 
-  # Never trust parameters from the scary internet, only allow the white list through.
   def url_params
     params.require(:url).permit(:long_url, :short_url)
   end
