@@ -1,3 +1,46 @@
 <%= render 'form' %>
 
-<%= link_to 'Back', urls_path %>
+<table class="table table-striped"> 
+  <thead> 
+    <tr> 
+      <th></th> 
+      <th>Long Url</th> 
+      <th>Short Url</th> 
+      <th>Created</th> 
+    </tr> 
+  </thead>
+
+
+  <tbody>
+    <% if @user_urls.nil? || @user_urls.empty? %>
+      <tr>
+        <td colspan="3">No Urls added yet!</td>
+      </tr>
+    <% else %>
+      <% @user_urls.each.with_index(1) do |url, index|
+      %> 
+        <tr> 
+          <td scope="row"><%= index %></td> 
+          <td>
+            <%= url.long_url %>
+          </td> 
+          <td>
+            <%= "#{root_url}#{url.short_url}" %>
+          </td>
+          <td>
+            <%= friendly_date url.created_at %>
+          </td>
+          <td>
+            <a href="#">view</a>
+          </td>
+          <td>
+            <a href="#">edit</a>
+          </td>
+          <td>
+            <a href="#">delete</a>
+          </td> 
+        </tr> 
+      <% end %>
+    <% end %>
+  </tbody> 
+</table>
