@@ -26,7 +26,6 @@ class Url < ActiveRecord::Base
   end
 
   def convert_to_snake_case
-    self.short_url = short_url.gsub(" ", "_")
+    self.short_url = short_url.tr(' ', '_')
   end
-
 end
