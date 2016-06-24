@@ -7,7 +7,7 @@ class UrlsController < ApplicationController
   def index
     @urls = Url.all
     @recently_added_links = Url.recently_added
-    # @influential_users = User.influential_users
+    @influential_users = User.influential_users
   end
 
   # GET /urls/1
