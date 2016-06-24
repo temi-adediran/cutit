@@ -6,6 +6,8 @@ class UrlsController < ApplicationController
   # GET /urls
   def index
     @urls = Url.all
+    # @recently_added_links = Url.recently_added
+    # @influential_users = User.influential_users
   end
 
   # GET /urls/1
@@ -15,6 +17,7 @@ class UrlsController < ApplicationController
   # GET /urls/new
   def new
     @url = Url.new
+    @user_urls = current_user.urls.order(created_at: :desc)
   end
 
   # GET /urls/1/edit
@@ -24,9 +27,10 @@ class UrlsController < ApplicationController
   # POST /urls
   def create
     @url = Url.new(url_params)
+    @url.user_id = current_user.id if current_user
 
     if @url.save
-      flash[:short_url] = "#{root_url}#{@url.short_url}"
+      flash.now[:short_url] = "#{root_url}#{@url.short_url}"
       redirect_to root_path
     else
       redirect_to urls_path, notice: 'Please enter a valid url'
