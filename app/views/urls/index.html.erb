@@ -44,7 +44,21 @@
   </div>
 
   <div class="col-md-4">
-    <p>Influential users</p>
+    <div class="panel panel-default">
+      <div class="panel-heading">Influential Users</div>
+      <ul class="list-group">
+        <% @influential_users.each do |user|%> 
+          <li class="list-group-item">
+            <span>
+              <%= user.username %>
+            </span>
+            <span class="new-line">
+              Links shortened: <%= user.urls_count %>
+            </span>
+            </li>
+        <% end %>
+      </ul>
+    </div>
   </div>
 
   <div class="col-md-4">
