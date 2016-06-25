@@ -11,4 +11,5 @@ class ApplicationController < ActionController::Base
   def redirect_to_dashboard
     redirect_to dashboard_path if logged_in?
   end
+
 end

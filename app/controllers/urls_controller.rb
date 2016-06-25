@@ -29,24 +29,23 @@ class UrlsController < ApplicationController
   def create
     @url = Url.new(url_params)
     @url.user_id = current_user.id if current_user
+    
 
     if @url.save
-      flash.now[:short_url] = "#{root_url}#{@url.short_url}"
+      flash[:short_url] = "#{root_url}#{@url.short_url}" if current_user.nil?
       redirect_to root_path
     else
       redirect_to urls_path, notice: 'Please enter a valid url'
     end
   end
 
-  # PATCH/PUT /urls/1
+  # update urls
   def update
     respond_to do |format|
       if @url.update(url_params)
-        format.html { redirect_to @url, notice: 'Url was successfully updated.' }
-        format.json { render :show, status: :ok, location: @url }
+        redirect_to @url, notice: 'Url was successfully updated.'
       else
-        format.html { render :edit }
-        format.json { render json: @url.errors, status: :unprocessable_entity }
+        render :edit 
       end
     end
   end
@@ -59,9 +58,10 @@ class UrlsController < ApplicationController
 
   def redirect_short_url
     short_url = params[:short_url]
-    url = Url.find_by(short_url: short_url)
+    url = Url.find_by(short_url: short_url)  
 
     if url
+      url.increment! :click_count
       redirect_to url.long_url, status: 301
     else
       redirect_to root_path, notice: 'Url does not exist'
