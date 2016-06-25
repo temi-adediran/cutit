@@ -12,12 +12,12 @@
 
 <p>
   <strong>Created:</strong>
-  <%= friendly_date @url.created_at %>
+  <%= time_ago_in_words(@url.created_at) + " ago" %>
 </p>
 
 <p>
   <strong>Number of clicks:</strong>
-  0
+  <%= @url.click_count %>
 </p>
 
 <p>
