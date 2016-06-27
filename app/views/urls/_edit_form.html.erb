@@ -21,6 +21,16 @@
         <%= f.label :short_url, "Short Url" %><br>
         <%= f.text_field :short_url %>
       </div>
+
+      <div class="switch">
+        <label>
+          Inactive
+          <%= f.check_box :status %>
+          <span class="lever"></span>
+          Active
+        </label>
+      </div>
+
       <div class="actions">
         <%= f.submit "Cut it" %>
       </div>

@@ -22,7 +22,11 @@
 
 <p>
   <strong>Link Status:</strong>
-  Active/Inactive
+  <% if @url.status %>
+    Active
+  <% else %>
+    Inactive
+  <% end %>
 </p>
 
 <%= link_to 'Edit', edit_url_path(@url) %> |
