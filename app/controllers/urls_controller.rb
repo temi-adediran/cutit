@@ -10,6 +10,7 @@ class UrlsController < ApplicationController
     @urls = Url.all
     @recently_added_links = Url.recently_added
     @influential_users = User.influential_users
+    @popular_links = Url.popular_links
   end
 
   # Details Url/[:id]

@@ -12,6 +12,7 @@ class Url < ActiveRecord::Base
   validates :short_url, uniqueness: true, exclusion: { in: %w(signup login urls dashboard logout signup) }
 
   scope :recently_added, -> { order(created_at: :desc).limit(10) }
+  scope :popular_links, -> { order(click_count: :desc).limit(10) }
 
   def generate_short_url
     return if short_url.present?
