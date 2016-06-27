@@ -12,4 +12,20 @@ class ApplicationController < ActionController::Base
     redirect_to dashboard_path if logged_in?
   end
 
+  def store_visit
+    @visit = Visit.new
+    @visit.browser = user_agent.browser
+    @visit.version = user_agent.version
+    @visit.os = user_agent.os
+    @visit.platform = user_agent.platform
+    url = Url.find_by(short_url: params[:short_url])
+    @visit.url_id = url.id
+    @visit.save
+  end
+
+  private
+
+  def user_agent
+    @user_agent ||= UserAgent.parse(request.user_agent)
+  end
 end

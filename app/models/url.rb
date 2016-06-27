@@ -1,5 +1,6 @@
 class Url < ActiveRecord::Base
   belongs_to :user, counter_cache: true
+  has_many :visits
   after_create :generate_short_url, unless: :short_url_supplied
   before_save :convert_to_snake_case
 
@@ -18,7 +19,7 @@ class Url < ActiveRecord::Base
       vanity_string = SecureRandom.urlsafe_base64(4).gsub(/[^A-Z0-9]/i, '')
       self.short_url = vanity_string
     end while Url.exists?(short_url: vanity_string)
-    self.save
+    save
   end
 
   def short_url_supplied
@@ -26,8 +27,6 @@ class Url < ActiveRecord::Base
   end
 
   def convert_to_snake_case
-    if short_url 
-      self.short_url = short_url.gsub(' ', '_')
-    end
+    self.short_url = short_url.tr(' ', '_') if short_url
   end
 end
