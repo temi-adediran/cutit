@@ -4,7 +4,6 @@ class UrlsController < ApplicationController
   before_action :redirect_to_root, only: :new
   before_action :store_visit, only: :redirect_short_url
 
-
   # Homepage
   def index
     @urls = Url.all
@@ -17,7 +16,7 @@ class UrlsController < ApplicationController
   def show
     @url = Url.find(params[:id])
     @url_visits = @url.visits.order(created_at: :desc)
-                      .paginate(page: params[:page], per_page: 10)
+                              .paginate(page: params[:page], per_page: 10)
   end
 
   # Dashboard
@@ -35,7 +34,6 @@ class UrlsController < ApplicationController
   def create
     @url = Url.new(url_params)
     @url.user_id = current_user.id if current_user
-    
 
     if @url.save
       flash[:short_url] = "#{root_url}#{@url.short_url}" if current_user.nil?
@@ -47,11 +45,11 @@ class UrlsController < ApplicationController
 
   # update urls
   def update
-    respond_to do |format|
+    respond_to do |_format|
       if @url.update(url_params)
         redirect_to @url, notice: 'Url was successfully updated.'
       else
-        render :edit 
+        render :edit
       end
     end
   end
@@ -64,7 +62,7 @@ class UrlsController < ApplicationController
 
   def redirect_short_url
     short_url = params[:short_url]
-    url = Url.find_by(short_url: short_url)  
+    url = Url.find_by(short_url: short_url)
 
     if url
       url.increment! :click_count
