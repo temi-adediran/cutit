@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160624175103) do
+ActiveRecord::Schema.define(version: 20160627143949) do
 
   create_table "urls", force: :cascade do |t|
     t.string   "long_url"
@@ -35,5 +35,17 @@ ActiveRecord::Schema.define(version: 20160624175103) do
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
+
+  create_table "visits", force: :cascade do |t|
+    t.string   "browser"
+    t.string   "version"
+    t.string   "platform"
+    t.string   "os"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "url_id"
+  end
+
+  add_index "visits", ["url_id"], name: "index_visits_on_url_id"
 
 end

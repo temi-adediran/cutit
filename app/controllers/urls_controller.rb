@@ -2,6 +2,8 @@ class UrlsController < ApplicationController
   before_action :set_url, only: [:show, :edit, :update, :destroy]
   before_action :redirect_to_dashboard, only: :index
   before_action :redirect_to_root, only: :new
+  before_action :store_visit, only: :redirect_short_url
+
 
   # Homepage
   def index
@@ -12,6 +14,9 @@ class UrlsController < ApplicationController
 
   # Details Url/[:id]
   def show
+    @url = Url.find(params[:id])
+    @url_visits = @url.visits.order(created_at: :desc)
+                      .paginate(page: params[:page], per_page: 10)
   end
 
   # Dashboard

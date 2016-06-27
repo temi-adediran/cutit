@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  browser: MyString
+  version: 1
+  platform: MyString
+  os: MyString
+
+two:
+  browser: MyString
+  version: 1
+  platform: MyString
+  os: MyString
