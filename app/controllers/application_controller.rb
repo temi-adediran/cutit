@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
     redirect_to dashboard_path if logged_in?
   end
 
-  def store_visit  
+  def store_visit
     @visit = Visit.new
     @visit.browser = user_agent.browser
     @visit.version = user_agent.version
@@ -25,8 +25,7 @@ class ApplicationController < ActionController::Base
 
   private
 
-    def user_agent
-      @user_agent ||= UserAgent.parse(request.user_agent)
-    end
-
+  def user_agent
+    @user_agent ||= UserAgent.parse(request.user_agent)
+  end
 end
