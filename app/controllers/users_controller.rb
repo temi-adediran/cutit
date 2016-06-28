@@ -12,12 +12,8 @@ class UsersController < ApplicationController
       log_in @user
       redirect_to dashboard_path
     else
-      render 'new'
+      render "new"
     end
-  end
-
-  def show
-    @user = User.find(params[:id])
   end
 
   private

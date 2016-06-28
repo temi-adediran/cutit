@@ -1,4 +1,4 @@
-<%= render "form" %>
+<%= render "urls/partials/form" %>
 
 <table class="table table-striped"> 
   <thead> 
@@ -11,13 +11,7 @@
   </thead>
 
   <tbody>
-    <% if @user_urls.any? %>
-      <%= render "user_urls" %>
-    <% else %>
-      <tr>
-        <td colspan="3">No Urls added yet!</td>
-      </tr>
-    <% end %>
+    <%= render "urls/partials/user_urls" %>
   </tbody> 
 </table>
 

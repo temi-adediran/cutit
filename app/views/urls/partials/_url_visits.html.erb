@@ -1,0 +1,20 @@
+<% if @url_visits.any? %>
+  <% @url_visits.each.with_index(1) do |visit, index| %> 
+    <tr> 
+      <td scope="row">
+        <%= index %>
+      </td> 
+      <td>
+        <%= friendly_date visit.created_at %>
+      </td>
+      <td><%= visit.browser %></td>
+      <td><%= visit.version %></td>
+      <td><%= visit.platform %></td>
+      <td><%= visit.os %></td>
+    </tr> 
+  <% end %>
+<% else %>
+  <tr>
+    <td colspan="3">No visits yet!</td>
+  </tr>
+<% end %>

@@ -18,15 +18,7 @@
           </div>
         </div>
       <% end %>
-
-      <% if flash[:short_url] %>
-        <div class="text-center alert alert-info">
-          <a href = "<%= flash[:short_url] %>" target="_blank">
-            <%= flash[:short_url] %>
-          </a>
-        </div>
-      <% end %>
-
+      <%= render "urls/partials/display_short_url" %>
     </div>
   </div>
 </div>
