@@ -9,7 +9,7 @@
       <%= form_for :url, url: "/urls", html: { class: "form-inline" } do |f| %>
         <div class="form-group">
           <div class="input-group">
-            <%= f.text_field :long_url, class: "form-control", pattern: "(https?:\\/\\/)?([a-z0-9]+\\.)?[a-z0-9\\-]+\\.[a-z]+.+[^\\W\\_]", placeholder: "Enter a Url...", required: true %>
+            <%= f.url_field :long_url, class: "form-control", placeholder: "Enter a Url...", required: true %>
 
             <div class="input-group-addon">
               <%= f.button "Cut it" %>

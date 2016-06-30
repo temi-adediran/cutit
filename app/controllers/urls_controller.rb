@@ -2,7 +2,7 @@ class UrlsController < ApplicationController
   before_action :set_url, only: [:details, :edit, :update, :destroy]
   before_action :redirect_to_dashboard, only: :homepage
   before_action :redirect_to_root, only: [:dashboard, :details, :edit]
-  before_action :store_visit, only: :redirect_short_url
+  #before_action :store_visit, only: :check_url_status
 
   def homepage
     @urls = Url.all
@@ -38,7 +38,7 @@ class UrlsController < ApplicationController
 
   def update
     if @url.update(url_params)
-      redirect_to @url, notice: 'Url was successfully updated.'
+      redirect_to details_path, notice: 'Url was successfully updated.'
     else
       render :edit
     end
@@ -53,12 +53,21 @@ class UrlsController < ApplicationController
     short_url = params[:short_url]
     url = Url.find_by(short_url: short_url)
 
-    if url
+    return if url_is_nil?(url) 
+
+    if url.status == true
       url.increment! :click_count
-      redirect_to url.long_url, status: 301
+      store_visit
+      redirect_to url.long_url
     else
-      redirect_to root_path, notice: 'Url does not exist'
+      redirect_to inactive_path    
     end
+  end
+
+  def inactive
+  end
+
+  def deleted
   end
 
   private
@@ -69,5 +78,11 @@ class UrlsController < ApplicationController
 
   def url_params
     params.require(:url).permit(:long_url, :short_url, :status)
+  end
+
+  def url_is_nil?(url)
+    return if url 
+    true
+    redirect_to deleted_path, status: 301
   end
 end

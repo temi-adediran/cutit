@@ -10,5 +10,7 @@ Rails.application.routes.draw do
   delete "logout" => "sessions#destroy"
   get "dashboard" => "urls#dashboard"
   get "details/:id" => "urls#details", as: :details
+  get "/inactive" => "urls#inactive", as: :inactive
+  get "/deleted" => "urls#deleted", as: :deleted
   get "/:short_url" => "urls#redirect_short_url", as: :short_url
 end
