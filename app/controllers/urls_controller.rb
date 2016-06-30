@@ -1,8 +1,11 @@
+require_relative "../helpers/message_helper"
+
 class UrlsController < ApplicationController
+  include MessageHelper 
+  
   before_action :set_url, only: [:details, :edit, :update, :destroy]
   before_action :redirect_to_dashboard, only: :homepage
   before_action :redirect_to_root, only: [:dashboard, :details, :edit]
-  #before_action :store_visit, only: :check_url_status
 
   def homepage
     @urls = Url.all
@@ -14,7 +17,7 @@ class UrlsController < ApplicationController
   def details
     @url = Url.find(params[:id])
     @url_visits = @url.visits.order(created_at: :desc)
-                              .paginate(page: params[:page], per_page: 10)
+                      .paginate(page: params[:page], per_page: 10)
   end
 
   def dashboard
@@ -38,7 +41,7 @@ class UrlsController < ApplicationController
 
   def update
     if @url.update(url_params)
-      redirect_to details_path, notice: 'Url was successfully updated.'
+      redirect_to details_path, notice: updated
     else
       render :edit
     end
@@ -46,21 +49,21 @@ class UrlsController < ApplicationController
 
   def destroy
     @url.destroy
-    redirect_to dashboard_path, notice: 'Url was successfully destroyed.'
+    redirect_to dashboard_path, notice: destroyed
   end
 
   def redirect_short_url
     short_url = params[:short_url]
     url = Url.find_by(short_url: short_url)
 
-    return if url_is_nil?(url) 
+    return if url_is_nil?(url)
 
-    if url.status == true
+    if url.status
       url.increment! :click_count
       store_visit
       redirect_to url.long_url
     else
-      redirect_to inactive_path    
+      redirect_to inactive_path
     end
   end
 
@@ -81,7 +84,7 @@ class UrlsController < ApplicationController
   end
 
   def url_is_nil?(url)
-    return if url 
+    return if url
     true
     redirect_to deleted_path, status: 301
   end

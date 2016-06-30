@@ -1,4 +1,8 @@
+require_relative "../helpers/message_helper"
+
 class SessionsController < ApplicationController
+  include MessageHelper 
+
   before_action :redirect_to_dashboard, only: :new
 
   def new
@@ -10,8 +14,8 @@ class SessionsController < ApplicationController
       log_in user
       redirect_to dashboard_path
     else
-      flash[:alert] = 'Invalid email/password combination'
-      render 'new'
+      flash[:alert] = invalid_login
+      render :new
     end
   end
 
@@ -19,6 +23,4 @@ class SessionsController < ApplicationController
     log_out
     redirect_to root_path
   end
-
-
 end
