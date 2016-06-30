@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-  before_action :redirect_to_root, only: :show
   before_action :redirect_to_dashboard, only: :new
 
   def new
@@ -12,17 +11,14 @@ class UsersController < ApplicationController
       log_in @user
       redirect_to dashboard_path
     else
-      render 'new'
+      render :new
     end
-  end
-
-  def show
-    @user = User.find(params[:id])
   end
 
   private
 
   def user_params
-    params.require(:user).permit(:username, :email, :password, :password_confirmation)
+    params.require(:user).permit(:username, :email, :password, 
+                                  :password_confirmation)
   end
 end

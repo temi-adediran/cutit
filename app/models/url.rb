@@ -4,11 +4,8 @@ class Url < ActiveRecord::Base
   after_create :generate_short_url, unless: :short_url_supplied
   before_save :convert_to_snake_case
 
-  URl_MATCH = /\A(https?:\/\/)?([a-z0-9]+\.)?[a-z0-9\-]+\.[a-z]+.+[^\W\_]\z/
-
   validates :long_url,
-            presence: true,
-            format: { with: URl_MATCH }
+            presence: true
   validates :short_url, uniqueness: true, exclusion: { in: %w(signup login urls dashboard logout signup) }
 
   scope :recently_added, -> { order(created_at: :desc).limit(10) }
