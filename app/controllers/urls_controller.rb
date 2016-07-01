@@ -33,10 +33,15 @@ class UrlsController < ApplicationController
     @url = Url.new(url_params)
     @url.user_id = current_user.id if current_user
 
-    if @url.save
-      flash[:short_url] = "#{root_url}#{@url.short_url}" if current_user.nil?
-      redirect_to dashboard_path
+    if @url.save 
+      flash[:notice] = url_success
+      flash[:short_url] = short_url
+    else
+      flash[:notice] = url_failure
     end
+
+    redirect_to_dashboard
+    redirect_to_root
   end
 
   def update
