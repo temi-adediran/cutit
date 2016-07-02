@@ -5,19 +5,7 @@
 
   <div class="row">
     <div class="col-sm-6 col-sm-offset-3">
-
-      <%= form_for :url, url: "/urls", html: { class: "form-inline" } do |f| %>
-        <div class="form-group">
-          <div class="input-group">
-            <%= f.url_field :long_url, class: "form-control", placeholder: "Enter a Url...", required: true %>
-
-            <div class="input-group-addon">
-              <%= f.button "Cut it" %>
-            </div>
-
-          </div>
-        </div>
-      <% end %>
+      <%= render "urls/partials/homepage_url_shortening_form" %>
       <%= render "urls/partials/display_short_url" %>
     </div>
   </div>
@@ -28,11 +16,7 @@
     <div class="panel panel-default">
       <div class="panel-heading">Recently Added Links</div>
       <ul class="list-group">
-        <% @recently_added_links.each do |url|%> 
-          <li class="list-group-item">
-            <%= "#{root_url}#{url.short_url}" %>
-          </li>
-        <% end %>
+        <%= render "urls/partials/display_recently_added_links" %>
       </ul>
     </div>
   </div>
@@ -43,16 +27,7 @@
         Influential Users
       </div>
       <ul class="list-group">
-        <% @influential_users.each do |user|%> 
-          <li class="list-group-item">
-            <span>
-              <%= user.username %>
-            </span>
-            <span class="new-line">
-              Links shortened: <%= user.urls_count %>
-            </span>
-            </li>
-        <% end %>
+        <%= render "urls/partials/display_influential_users" %>
       </ul>
     </div>
   </div>
@@ -63,16 +38,7 @@
         Popular Links
       </div>
       <ul class="list-group">
-        <% @popular_links.each do |url|%> 
-          <li class="list-group-item">
-            <span>
-              <%= "#{root_url}#{url.short_url}" %>
-            </span>
-            <span class="new-line">
-              Number of hits: <%= url.click_count %>
-            </span>
-          </li>
-        <% end %>
+        <%= render "urls/partials/display_popular_links" %>
       </ul>
     </div>
   </div>

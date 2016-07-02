@@ -1,12 +1,12 @@
 require "rails_helper"
 
-RSpec.feature "Login process", type: :feature do
-  before(:all) { create(:user, password: "password", password_confirmation: "password") }
+RSpec.feature "Authentication", type: :feature do
+  before(:all) { create(:user) }
   let(:user) { User.last }
 
   feature "when user enters correct inputs" do
     scenario "should log in user" do
-      login_helper(user.email, "password")
+      fill_login_form(user.email, "password")
 
       expect(page).to have_content "Welcome, #{user.username}"
     end
@@ -14,9 +14,9 @@ RSpec.feature "Login process", type: :feature do
 
   feature "when inputs are incorrect" do
     scenario "should not sign user in" do
-      login_helper(user.email, "wrong_password")
+      fill_login_form(user.email, "wrong_password")
 
-      expect(page).to have_no_content "Log Out"
+      expect(page).to have_content "Invalid email/password combination"
     end
   end
 
@@ -31,7 +31,7 @@ RSpec.feature "Login process", type: :feature do
 
   feature "when at least an input is not present" do
     scenario "should not sign user in" do
-      login_helper(
+      fill_login_form(
         user.email,
         nil
       )
@@ -39,5 +39,4 @@ RSpec.feature "Login process", type: :feature do
       expect(page).to have_no_content "Welcome, #{user.username}"
     end
   end
-
 end

@@ -15,5 +15,7 @@
 /log/*
 !/log/.keep
 /tmp
+
 /coverage
 .DS_Store
+

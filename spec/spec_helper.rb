@@ -1,6 +1,10 @@
+require 'simplecov'
+SimpleCov.start 'rails'
+require "coveralls"
+Coveralls.wear!
 require "factory_girl_rails"
 require "support/form_helpers"
-require "support/login_helper"
+#require "support/login_helper"
 require "capybara"
 
 RSpec.configure do |config|
@@ -14,5 +18,5 @@ RSpec.configure do |config|
 
   config.include FactoryGirl::Syntax::Methods
   config.include FormHelpers, type: :feature
-  config.include LoginHelper, type: :controller
+  #config.include LoginHelper, type: :controller
 end

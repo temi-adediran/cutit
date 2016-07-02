@@ -16,7 +16,7 @@ module MessageHelper
   end
 
   def url_success
-    "Url created successfully! Log in to have your url saved."
+    "Url created successfully."
   end
 
   def url_failure

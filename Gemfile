@@ -34,8 +34,13 @@ gem "will_paginate",           "3.0.7"
 gem "bootstrap-will_paginate", "0.0.10"
 
 gem "useragent"
+
 gem "rspec"
+
 gem 'rspec-rails', '~> 3.4'
+
+gem "coveralls", require: false
+
 # Use Unicorn as the app server
 # gem "unicorn"
 
@@ -48,7 +53,7 @@ group :development, :test do
   gem "capybara"
   gem "factory_girl_rails"
   gem "faker"
-  gem "simplecov"
+  gem 'simplecov', :require => false, :group => :test
   gem "database_cleaner"
 end
 

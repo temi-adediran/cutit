@@ -5,7 +5,7 @@ RSpec.describe "Signup process", type: :feature do
 
   feature "when form is filled with correct inputs" do
     scenario "should sign user up" do
-      signup_helper(
+      fill_signup_form(
         user.username,
         user.email,
         "password",
@@ -16,21 +16,9 @@ RSpec.describe "Signup process", type: :feature do
     end
   end
 
-  feature "when user enters an invalid email"
-    scenario 'should not sign user up' do
-      signup_helper(
-        user.username,
-        "invalid_email",
-        "password",
-        "password"
-      )
-
-      expect(page).to have_no_content "Welcome, #{user.username}"
-    end
-
   feature "when at least an input is not present" do
     scenario "should not sign user up" do
-      signup_helper(
+      fill_signup_form(
         user.username,
         nil,
         "password",
@@ -43,7 +31,7 @@ RSpec.describe "Signup process", type: :feature do
 
   feature "when password and password confirmation inputs are not the same" do
     scenario "should not sign user up" do
-      signup_helper(
+      fill_signup_form(
         user.username,
         nil,
         "password",

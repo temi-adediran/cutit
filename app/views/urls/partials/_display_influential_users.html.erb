@@ -1,0 +1,10 @@
+<% @influential_users.each do |user|%> 
+  <li class="list-group-item">
+    <span>
+      <%= user.username %>
+    </span>
+    <span class="new-line">
+      Links shortened: <%= user.urls_count %>
+    </span>
+  </li>
+<% end %>

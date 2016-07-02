@@ -1,22 +1,13 @@
 <div class="row">    
   <div class="col-md-8 col-md-offset-2">
-    <%= form_for(@url) do |f| %>
-      <% if @url.errors.any? %>
-        <div id="error_explanation">
-          <ul>
-          <% @url.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
-          <% end %>
-          </ul>
-        </div>
-      <% end %>
-
+    <%= form_for(@url, html: { class: "form-inline", id: "user_url_form" }) do |f| %>
+      <%=render "shared/url_success_message" %>
       <div class="field">
         <%= f.label :long_url, "Url" %><br>
         <%= f.url_field :long_url %>
       </div>
       <div class="field">
-        <%= f.label :short_url, "Vanity string" %><br>
+        <%= f.label :short_url, "Vanity string(optional)" %><br>
         <%= f.text_field :short_url %>
       </div>
       <div class="actions">
