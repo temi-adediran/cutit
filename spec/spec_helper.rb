@@ -4,12 +4,13 @@ SimpleCov.start 'rails'
 #Coveralls.wear!
 require "factory_girl_rails"
 require "support/form_helpers"
-#require "support/login_helper"
 require "capybara"
+require 'support/database_cleaner'
 
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|
     expectations.include_chain_clauses_in_custom_matcher_descriptions = true
+    expectations.syntax = :expect
   end
 
   config.mock_with :rspec do |mocks|
@@ -18,5 +19,4 @@ RSpec.configure do |config|
 
   config.include FactoryGirl::Syntax::Methods
   config.include FormHelpers, type: :feature
-  #config.include LoginHelper, type: :controller
 end

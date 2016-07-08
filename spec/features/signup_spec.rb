@@ -42,8 +42,8 @@ RSpec.describe "Signup process", type: :feature do
     end
   end
 
-  feature "when user intends to signin" do
-    scenario "should link login page" do
+  feature "when user intends to signup" do
+    scenario "should link signup page" do
       visit new_user_path
       click_link "Log in now!"
 

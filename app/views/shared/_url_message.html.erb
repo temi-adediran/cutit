@@ -1,7 +1,9 @@
-<% if flash[:notice] %>
+<% if flash[:notice] ||  %>
   <div class="text-center alert alert-info">
     <ul>
         <li><%= flash[:notice] %></li>
     </ul>
   </div>
 <% end %>
+
+

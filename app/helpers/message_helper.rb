@@ -1,6 +1,10 @@
 module MessageHelper
-  def updated
+  def update_success
     "Url was successfully updated."
+  end
+
+  def update_failure
+    "Url was not successfully updated. Please try again!"
   end
 
   def destroyed
@@ -20,6 +24,6 @@ module MessageHelper
   end
 
   def url_failure
-    "Url was not successfully created. Please confirm it's in url format"
+    "Url shortening was not successful. Vanity string already taken, please enter a new one!"
   end
 end

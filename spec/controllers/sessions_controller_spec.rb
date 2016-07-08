@@ -2,7 +2,9 @@ require 'rails_helper'
 
 RSpec.describe SessionsController, type: :controller do
   before(:all) { create(:user) }
-  let(:user) { User.last }
+  subject(:user) { User.last }
+
+  it { should use_before_action(:redirect_to_dashboard) }
 
   describe "#new" do
     it "renders the right view when user attempts to sign in" do
@@ -37,7 +39,7 @@ RSpec.describe SessionsController, type: :controller do
         expect(flash[:alert]).to include "Invalid email/password combination"
       end
 
-      it "renders the login form" do
+      it "re-renders the new method" do
         expect(response).to render_template(:new)
       end
     end
@@ -45,7 +47,7 @@ RSpec.describe SessionsController, type: :controller do
     context "when authenticating with valid details" do
       before(:each) do post :create, session: {
           email: user.email, password: "password"
-        }
+      }
       end
 
       it "logs the user in successfully" do   
@@ -61,7 +63,7 @@ RSpec.describe SessionsController, type: :controller do
   describe "#destroy" do
     context "when user logs out" do
       before(:each) do delete :destroy, session: {
-          email: user.email, password: "password"
+          email: user.email, password: user.password
         }
       end
 

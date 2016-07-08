@@ -1,23 +1,23 @@
 <div class="row">    
   <div class="col-md-6 col-md-offset-3">
     <%= form_for(@user) do |f| %>
-      <%=render "shared/error_messages" %>
+      <%=render "shared/user_messages" %>
 
       <div class="field">
         <%= f.label :username %><br>
-        <%= f.text_field :username, class: "form_control" %>
+        <%= f.text_field :username, class: "form_control", :required => true %>
       </div>
       <div class="field">
         <%= f.label :email %><br>
-        <%= f.email_field :email, class: "form_control" %>
+        <%= f.email_field :email, class: "form_control", :required => true %>
       </div>
       <div class="field">
         <%= f.label :password %><br>
-        <%= f.password_field :password, class: "form_control" %>
+        <%= f.password_field :password, class: "form_control", :required => true %>
       </div>
       <div class="field">
         <%= f.label :password_confirmation, "Confirm Password" %><br>
-        <%= f.password_field :password_confirmation, class: "form_control" %>
+        <%= f.password_field :password_confirmation, class: "form_control", :required => true %>
       </div>
       
       <div class="actions">

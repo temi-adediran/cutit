@@ -8,7 +8,6 @@ class UrlsController < ApplicationController
   before_action :redirect_to_root, only: [:dashboard, :details, :edit]
 
   def homepage
-    @urls = Url.all
     @recently_added_links = Url.recently_added
     @influential_users = User.influential_users
     @popular_links = Url.popular_links
@@ -46,9 +45,11 @@ class UrlsController < ApplicationController
 
   def update
     if @url.update(url_params)
-      redirect_to details_path, notice: updated
+      redirect_to details_path, 
+      notice: update_success
     else
-      render :edit
+      render :edit,
+      notice: update_failure
     end
   end
 
@@ -57,7 +58,7 @@ class UrlsController < ApplicationController
     redirect_to dashboard_path, notice: destroyed
   end
 
-  def redirect_short_url
+  def redirect_url
     short_url = params[:short_url]
     url = Url.find_by(short_url: short_url)
 
