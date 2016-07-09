@@ -37,9 +37,11 @@ gem "useragent"
 
 gem "rspec"
 
-gem 'rspec-rails', '~> 3.4'
+gem "rspec-rails", "~> 3.4"
 
 gem "coveralls", require: false
+
+gem "font-awesome-sass"
 
 # Use Unicorn as the app server
 # gem "unicorn"
