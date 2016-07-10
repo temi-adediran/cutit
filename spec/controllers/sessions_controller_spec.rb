@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe SessionsController, type: :controller do
   before(:all) { create(:user) }
-  subject(:user) { User.last }
+  let(:user) { User.last }
 
   it { should use_before_action(:redirect_to_dashboard) }
 
@@ -46,7 +46,7 @@ RSpec.describe SessionsController, type: :controller do
 
     context "when authenticating with valid details" do
       before(:each) do post :create, session: {
-          email: user.email, password: "password"
+        email: user.email, password: "password"
       }
       end
 

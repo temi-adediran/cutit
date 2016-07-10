@@ -13,8 +13,8 @@ class Url < ActiveRecord::Base
   after_create :generate_short_url, unless: :short_url_supplied
   before_save :convert_to_snake_case
 
-  scope :recently_added, -> { order(created_at: :desc).limit(10) }
-  scope :popular_links, -> { order(click_count: :desc).limit(10) }
+  scope :recently_added, -> { order(created_at: :desc).limit(8) }
+  scope :popular_links, -> { order(click_count: :desc).limit(5) }
 
   def generate_short_url
     return if short_url.present?

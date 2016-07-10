@@ -22,13 +22,9 @@ RSpec.describe UsersController, type: :controller do
   end
 
   describe "#create" do
-    it "permits only the required fields" do
-      should permit(:username, :email, :password, :password_confirmation)
-      .for(:create, params: valid_attributes).on(:user)
-    end
-
     context "with valid details" do 
       before(:each){ post :create, valid_attributes }
+      
       it "creates a new user" do
         expect(User.all.count).to eq(1)
       end
@@ -59,6 +55,10 @@ RSpec.describe UsersController, type: :controller do
         expect(response).to render_template(:new)
       end
     end
-  end
 
+    it "permits only the required fields" do
+      should permit(:username, :email, :password, :password_confirmation)
+      .for(:create, params: valid_attributes).on(:user)
+    end
+  end
 end

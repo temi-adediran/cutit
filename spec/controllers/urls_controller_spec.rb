@@ -1,8 +1,20 @@
 require 'rails_helper'
 
 RSpec.describe UrlsController, type: :controller do
-  before(:each) { create(:url) }
-  let(:url) { Url.first }
+  let(:url) { build(:url) }
+  let(:valid_attributes) do
+    { url: {
+      long_url: url.long_url,
+      short_url: url.short_url
+      }
+    }
+  end
+
+  describe "before actions" do 
+    it { should use_before_action(:set_url) }
+    it { should use_before_action(:redirect_to_dashboard) }
+    it { should use_before_action(:redirect_to_root) }
+  end  
 
   describe "#homepage" do
     it "renders the :homepage view" do
@@ -22,8 +34,9 @@ RSpec.describe UrlsController, type: :controller do
 
   describe "#details" do
     it "renders the :details view" do
-      get :details
-      expect(response).to render_template "details" 
+      post :create, valid_attributes
+      get :details, id: url
+      expect(response).to render_template :details
     end
 
     xit "assigns the requested url to @url" do
@@ -48,47 +61,44 @@ RSpec.describe UrlsController, type: :controller do
   end
 
   describe "#edit" do
+    before(:each) { post :create, valid_attributes }
+
     it "renders the :edit view" do
-      get :edit
+      get :edit, id: url
       expect(response).to render_template "edit"
     end
   end
 
   describe "#create" do
-    xit "permits only the required fields" do
+    it "permits only the required fields" do
+      should permit(:long_url, :short_url)
+      .for(:create, params: valid_attributes).on(:url)
     end
 
     context "with valid details" do
-      before(:each) do post :create, url: {
-        long_url: url.long_url,
-        short_url: url.short_url
-        }
-      end
+      before(:each) { post :create, valid_attributes }
 
       it "creates a new url" do
-        expect { Url.create }.to change(Url.count).by(1)
+        expect(Url.all.count).to eq(1)
       end
 
-      xit "sets flash with the short url" do
-      end
+      it { should set_flash[:short_url] }
 
-      xit "sets flash with success message" do 
-      end
+      it { should set_flash[:notice] } 
     end
 
     context "with invalid details" do
        before(:each) do post :create, url: {
-        long_url: "an.invalid_url",
+        long_url: "an_invalid_url",
         short_url: url.short_url
         }
       end
 
       it "does not create a new url" do
-        expect { Url.create }.to_not change{ Url.count }.by(1)
+        expect(Url.all.count).to eq(0)
       end
 
-      xit "sets flash with the failure message" do 
-      end
+      it { should set_flash[:notice] } 
     end
   end
 
@@ -147,13 +157,9 @@ RSpec.describe UrlsController, type: :controller do
   end
 
   describe "#inactive" do
-    xit "renders the :inactive view" do
+    it "renders the :inactive view" do
+      get :inactive
+      expect(response).to render_template "inactive"
     end
   end
-
-  describe "before actions" do 
-    it { should use_before_action(:set_url) }
-    it { should use_before_action(:redirect_to_dashboard) }
-    it { should use_before_action(:redirect_to_root) }
-  end  
 end

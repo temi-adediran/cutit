@@ -35,7 +35,7 @@ module FormHelpers
   end
 
   def submit_url
-    click_on("Cut it")
+    click_on("Cutit")
   end
 
   def submit_form
