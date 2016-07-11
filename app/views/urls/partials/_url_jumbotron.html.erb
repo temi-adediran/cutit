@@ -1,0 +1,32 @@
+<div class="jumbotron intro">
+  <h1>
+    Shorten Urls Like a Boss!
+  </h1>
+
+  <div class="row">
+    <div class="col-sm-6 col-sm-offset-3">
+    
+      <%= form_for :url, url: "/urls", html: { class: "form-inline", id: "url_form" } do |f| %>
+        <div class="form-group">
+          <div class="input-group">
+            <%= f.url_field :long_url, class: "form-control", placeholder: "Enter a Url...", required: true %>
+
+            <div class="input-group-addon">
+              <%= f.button "Cut it" %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+
+      <% if flash[:notice] %>
+        <div class="text-center alert alert-info">
+          <%= flash[:notice] %>
+          <a href = "<%= flash[:short_url] %>" target="_blank">
+            <%= flash[:short_url] %>
+          </a>
+        </div>
+      <% end %>
+
+    </div>
+  </div>
+</div>

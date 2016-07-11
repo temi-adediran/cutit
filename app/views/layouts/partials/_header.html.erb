@@ -1,17 +1,25 @@
-<header class="navbar navbar-fixed-top navbar-inverse">
-  <div class="container">
-    <%= link_to "Cutit", root_path, id: "logo" %>
+<div class="wrapper">
+  <header class="navbar">
+    <div class="container">
 
-    <nav>
-      <ul class="nav navbar-nav navbar-right">
-      <% if logged_in? %>
-        <li> <a>Welcome, <%= current_user.username %> </a></li>
-        <li><%= link_to "Log Out", logout_path, method: :delete %></li>
-      <% else %>
-        <li><%= link_to "Sign Up", signup_path %></li>
-        <li><%= link_to "Log In", login_path %></li>
-      <% end %>
-      </ul>
-    </nav>
-  </div>
-</header>
+      <div class="navbar-header">
+        <%= link_to "Cutit", root_path, id: "logo" , class: "navbar-brand" %>  
+      </div>
+
+      <nav>
+        <ul class="nav navbar-nav navbar-right">
+        <% if logged_in? %>
+          <li> <a>Welcome, <%= current_user.username %> </a></li>
+          <li><%= link_to "Log Out", logout_path, method: :delete %></li>
+        <% else %>
+          <li><%= link_to "Log In", login_path, class: "btn btn-default" %></li>
+          <li><%= link_to "Sign Up", signup_path, class: "btn btn-default" %></li>
+        <% end %>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <%= render "urls/partials/url_jumbotron" if current_page?("/") %> 
+</div>
+
