@@ -1,78 +1,32 @@
-<div class="jumbotron intro">
-  <h1>
-    Shorten Urls Like a Boss!
-  </h1>
-
-  <div class="row">
-    <div class="col-sm-6 col-sm-offset-3">
-
-      <%= form_for :url, url: "/urls", html: { class: "form-inline" } do |f| %>
-        <div class="form-group">
-          <div class="input-group">
-            <%= f.url_field :long_url, class: "form-control", placeholder: "Enter a Url...", required: true %>
-
-            <div class="input-group-addon">
-              <%= f.button "Cut it" %>
-            </div>
-
-          </div>
-        </div>
-      <% end %>
-      <%= render "urls/partials/display_short_url" %>
-    </div>
-  </div>
-</div>
-
-<div class="row">
-  <div class="col-md-4">
+<div class="row links-info">
+  <div class="col-md-4 recently-added-links">
     <div class="panel panel-default">
-      <div class="panel-heading">Recently Added Links</div>
+      <div class="panel-heading">
+        Recently Added Links <i class="fa fa-link fa-lg"></i></div>
       <ul class="list-group">
-        <% @recently_added_links.each do |url|%> 
-          <li class="list-group-item">
-            <%= "#{root_url}#{url.short_url}" %>
-          </li>
-        <% end %>
+        <%= render "urls/partials/display_recently_added_links" %>
       </ul>
     </div>
   </div>
 
-  <div class="col-md-4">
+  <div class="col-md-4 influential-users">
     <div class="panel panel-default">
       <div class="panel-heading">
-        Influential Users
+        Influential Users <i class="fa fa-users fa-lg"></i>
       </div>
       <ul class="list-group">
-        <% @influential_users.each do |user|%> 
-          <li class="list-group-item">
-            <span>
-              <%= user.username %>
-            </span>
-            <span class="new-line">
-              Links shortened: <%= user.urls_count %>
-            </span>
-            </li>
-        <% end %>
+        <%= render "urls/partials/display_influential_users" %>
       </ul>
     </div>
   </div>
 
-  <div class="col-md-4">
+  <div class="col-md-4 popular-links">
     <div class="panel panel-default">
       <div class="panel-heading">
-        Popular Links
+        Popular Links <i class="fa fa-trophy fa-lg"></i>
       </div>
       <ul class="list-group">
-        <% @popular_links.each do |url|%> 
-          <li class="list-group-item">
-            <span>
-              <%= "#{root_url}#{url.short_url}" %>
-            </span>
-            <span class="new-line">
-              Number of hits: <%= url.click_count %>
-            </span>
-          </li>
-        <% end %>
+        <%= render "urls/partials/display_popular_links" %>
       </ul>
     </div>
   </div>

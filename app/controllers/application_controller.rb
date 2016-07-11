@@ -13,14 +13,14 @@ class ApplicationController < ActionController::Base
   end
 
   def store_visit
-    @visit = Visit.new
-    @visit.browser = user_agent.browser
-    @visit.version = user_agent.version
-    @visit.os = user_agent.os
-    @visit.platform = user_agent.platform
     url = Url.find_by(short_url: params[:short_url])
-    @visit.url_id = url.id
-    @visit.save
+    Visit.create ({
+      browser: user_agent.browser,
+      version: user_agent.version,
+      os: user_agent.os,
+      platform: user_agent.platform,
+      url_id: url.id
+    })
   end
 
   private

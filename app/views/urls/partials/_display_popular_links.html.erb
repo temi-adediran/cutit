@@ -1,0 +1,11 @@
+<% @popular_links.each do |url|%> 
+  <li class="list-group-item">
+    <i class="fa fa-star"></i>
+    <span>
+      <%= "#{root_url}#{url.short_url}" %>
+    </span>
+    <span class="new-line">
+      Number of hits: <%= url.click_count %>
+    </span>
+  </li>
+<% end %>
