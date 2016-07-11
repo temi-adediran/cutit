@@ -104,29 +104,39 @@ RSpec.describe UrlsController, type: :controller do
 
   describe "#update" do
     context "with valid details" do
-      xit "redirects to the :details view" do 
+      before(:each) do post :update, user: {
+        long_url: "https://andela.com",
+        short_url: "andela"
+      }
       end
 
-      xit "sets flash with update_success message" do 
+      it "redirects to the :details view" do 
+        expect(response).to redirect_to details_path
+      end
+
+      it "sets flash with update_success message" do 
+        it { should set_flash[:notice] } 
       end
     end
 
     context "with invalid details" do
-      xit "re-renders the :edit view" do 
+      before(:each) do post :update, user: {
+        long_url: "invalid_url",
+        short_url: "andela"
+      }
+      end
+      
+      it "re-renders the :edit view" do 
+        expect(response).to render_template "edit"
       end
 
-      xit "sets flash with update_failure message" do 
+      it "sets flash with update_failure message" do 
+        it { should set_flash[:notice] } 
       end
     end
   end
 
   describe "#redirect_url" do
-    xit "assigns the short_url from the url params" do
-    end
-
-    xit "finds the short_url in the database table" do 
-    end
-
     context "when url does not exist" do 
       xit "redirects to the :deleted view" do 
       end
@@ -138,10 +148,19 @@ RSpec.describe UrlsController, type: :controller do
     end
 
     context "when url is active" do 
+      before(:each) { post :create, valid_attributes }
+
+      xit "assigns the short_url from the url params" do
+      end
+
+      xit "finds the short_url in the database table" do 
+      end
+
       xit "redirects to the long_url" do 
       end
 
-      xit "increments the url's click_count" do 
+      it "increments the url's click_count" do 
+        expect(url.click_count).to eq(1)
       end
 
       xit "abstracts the statistics of the url visit" do 
