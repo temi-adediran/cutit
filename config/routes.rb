@@ -1,17 +1,23 @@
 Rails.application.routes.draw do
-  resources :users, only: [:new, :create]
-  resources :urls, only: [:edit, :create, :update, :destroy]
+  root 'urls#homepage'
 
-  root "urls#homepage"
+  get 'signup' => 'users#new'
 
-  get "signup" => "users#new"
-  get "login" => "sessions#new"
-  post "login" => "sessions#create"
-  delete "logout" => "sessions#destroy"
-  get "dashboard" => "urls#dashboard"
-  get "details/:id" => "urls#details", as: :details
-  get "edit/:id" => "urls#edit", as: :edit
-  get "/inactive" => "urls#inactive", as: :inactive
-  get "/deleted" => "urls#deleted", as: :deleted
-  get "/:short_url" => "urls#redirect_url", as: :short_url
+  scope controller: :sessions do
+    get 'login'     => :new
+    post 'login'    => :create
+    delete 'logout' => :destroy
+  end
+
+  scope controller: :urls do
+    get 'dashboard'     => :dashboard
+    get 'details/:id'   => :details, as: :details
+    get 'edit/:id'      => :edit, as: :edit_url
+    get '/inactive'     => :inactive, as: :inactive
+    get '/deleted'      => :deleted, as: :deleted
+    get '/:short_url'   => :redirect_url, as: :short_url
+  end
+
+  resources :urls, only: [:create, :update, :destroy]
+  resources :users, only: :create
 end

@@ -1,8 +1,8 @@
-require_relative "../helpers/message_helper"
+require_relative '../helpers/message_helper'
 
 class UrlsController < ApplicationController
-  include MessageHelper 
-  
+  include MessageHelper
+
   before_action :set_url, only: [:details, :edit, :update, :destroy]
   before_action :redirect_to_dashboard, only: :homepage
   before_action :redirect_to_root, only: [:dashboard, :details, :edit]
@@ -14,7 +14,6 @@ class UrlsController < ApplicationController
   end
 
   def details
-    @url = Url.find(params[:id])
     @url_visits = @url.visits.order(created_at: :desc)
                       .paginate(page: params[:page], per_page: 10)
   end
@@ -32,7 +31,7 @@ class UrlsController < ApplicationController
     @url = Url.new(url_params)
     @url.user_id = current_user.id if current_user
 
-    if @url.save 
+    if @url.save
       flash[:notice] = url_success
       flash[:short_url] = short_url
     else
@@ -45,32 +44,31 @@ class UrlsController < ApplicationController
 
   def update
     if @url.update(url_params)
-      redirect_to details_path, 
-      notice: update_success
+      redirect_to details_path,
+                  notice: update_success
     else
       render :edit,
-      notice: update_failure
+             notice: update_failure
     end
   end
 
   def destroy
     @url.destroy
+
     redirect_to dashboard_path, notice: destroyed
   end
 
   def redirect_url
-    short_url = params[:short_url]
-    url = Url.find_by(short_url: short_url)
+    url = Url.find_by(short_url: params[:short_url])
 
-    return if url_is_nil?(url)
+    return redirect_to deleted_path if url.nil?
 
-    if url.status
-      url.increment! :click_count
-      store_visit
-      redirect_to url.long_url
-    else
-      redirect_to inactive_path
-    end
+    return redirect_to inactive_path unless url.status
+
+    url.increment! :click_count
+    store_visit
+
+    redirect_to url.long_url
   end
 
   def inactive
@@ -82,16 +80,10 @@ class UrlsController < ApplicationController
   private
 
   def set_url
-    @url = Url.find(params[:id])
+    @url ||= Url.find(params[:id])
   end
 
   def url_params
     params.require(:url).permit(:long_url, :short_url, :status)
-  end
-
-  def url_is_nil?(url)
-    return if url
-    true
-    redirect_to deleted_path, status: 301
   end
 end

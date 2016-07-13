@@ -1,20 +1,25 @@
 class Url < ActiveRecord::Base
   belongs_to :user, counter_cache: true
-  has_many :visits
+  has_many :visits, dependent: :destroy
 
   URl_MATCH = /\A(https?:\/\/)?([a-z0-9]+\.)?[a-z0-9\-]+\.[a-z]+.+[^\W\_]\z/
 
   validates :long_url, presence: true,
-            format: { with: URl_MATCH }
-  validates :short_url, uniqueness: true, 
-  exclusion: { in: %w(signup login urls dashboard logout
-                     signup update create destroy homepage url urls) }
+                       format: { with: URl_MATCH }
+  validates :short_url, uniqueness: true,
+                        exclusion: { in: %w(signup login urls dashboard logout
+                                            signup update create destroy homepage url urls details) }
 
   after_create :generate_short_url, unless: :short_url_supplied
   before_save :convert_to_snake_case
 
-  scope :recently_added, -> { order(created_at: :desc).limit(8) }
-  scope :popular_links, -> { order(click_count: :desc).limit(5) }
+  def self.recently_added
+    order(created_at: :desc).limit(8)
+  end
+
+  def self.popular_links
+    order(click_count: :desc).limit(5)
+  end
 
   def generate_short_url
     return if short_url.present?
@@ -22,6 +27,7 @@ class Url < ActiveRecord::Base
       vanity_string = SecureRandom.urlsafe_base64(4).gsub(/[^A-Z0-9]/i, '')
       self.short_url = vanity_string
     end while Url.exists?(short_url: vanity_string)
+
     save
   end
 
