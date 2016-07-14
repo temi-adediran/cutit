@@ -35,7 +35,7 @@ class UrlsController < ApplicationController
     else
       flash[:notice] = url_failure
     end
- 
+
     redirect_to_dashboard
     redirect_to_root
   end

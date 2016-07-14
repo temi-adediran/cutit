@@ -1,11 +1,11 @@
-require 'simplecov'
-SimpleCov.start 'rails'
+require "simplecov"
+SimpleCov.start "rails"
 require "coveralls"
-Coveralls.wear! 'rails'
-require 'factory_girl_rails'
-require 'support/form_helpers'
-require 'capybara'
-require 'support/database_cleaner'
+Coveralls.wear! "rails"
+require "factory_girl_rails"
+require "support/form_helpers"
+require "capybara"
+require "support/database_cleaner"
 
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|

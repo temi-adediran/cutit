@@ -6,13 +6,13 @@ class Url < ActiveRecord::Base
 
   validates :long_url, presence: true,
                        format: { with: URl_MATCH }
-  validates :short_url, uniqueness: true, presence: true, 
+  validates :short_url, uniqueness: true, presence: true,
                         exclusion: { in: %w(signup login urls dashboard logout
                                             signup update create destroy homepage url urls details) }
 
   before_validation :generate_short_url, unless: :short_url?
   before_save :convert_to_snake_case
- 
+
   def self.recently_added
     order(created_at: :desc).limit(8)
   end
@@ -32,11 +32,11 @@ class Url < ActiveRecord::Base
 
   def generate_short_url
     begin
-      self.short_url = SecureRandom.urlsafe_base64(4).gsub(/[^A-Z0-9]/i, '')
+      self.short_url = SecureRandom.urlsafe_base64(4).gsub(/[^A-Z0-9]/i, "")
     end while Url.exists?(short_url: short_url)
   end
 
   def convert_to_snake_case
-    self.short_url = short_url.tr(' ', '_') if short_url
+    self.short_url = short_url.tr(" ", "_") if short_url
   end
 end
