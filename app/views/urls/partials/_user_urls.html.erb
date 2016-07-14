@@ -6,7 +6,7 @@
         <%= truncate(url.long_url, length: 45) %>
       </td> 
       <td>
-        <a href="<%= '#{root_url}#{url.short_url}' %>" target="_blank">
+        <a href=<%= "#{root_url}#{url.short_url}" %> target="_blank">
           <%= "#{root_url}#{url.short_url}" %>              
         </a>
       </td>
