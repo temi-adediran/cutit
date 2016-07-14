@@ -1,9 +1,7 @@
-require_relative '../helpers/message_helper'
-
 class SessionsController < ApplicationController
   include MessageHelper
 
-  before_action :redirect_to_dashboard, only: :new
+  before_action :redirect_to_dashboard, only: :new, if: :logged_in?
 
   def new
   end

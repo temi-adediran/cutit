@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :redirect_to_dashboard, only: :new
+  before_action :redirect_to_dashboard, only: :new, if: :logged_in?
 
   def new
     @user = User.new

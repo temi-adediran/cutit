@@ -16,7 +16,7 @@ module MessageHelper
   end
 
   def short_url
-    "#{root_url}#{@url.short_url}"
+    short_url_url(short_url: @url.short_url)
   end
 
   def url_success

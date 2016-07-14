@@ -1,8 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe UrlsController, type: :controller do
-  before(:all) { create(:url) }
-  let(:url) { Url.last }
+  let(:url) { create(:url) }
 
   describe 'before actions' do
     it { should use_before_action(:set_url) }
@@ -22,9 +21,8 @@ RSpec.describe UrlsController, type: :controller do
     end
 
     it 'populates the popular links' do
-      Url.destroy_all
-      @first_url = create(:url, click_count: 3)
-      @second_url = create(:url, click_count: 4)
+      @first_url = create(:url, visits_count: 3)
+      @second_url = create(:url, visits_count: 4)
       expect(assigns(:popular_links)).to eq([@second_url, @first_url])
     end
   end
@@ -53,10 +51,6 @@ RSpec.describe UrlsController, type: :controller do
     it 'renders the :dashboard view' do
       expect(response).to render_template :dashboard
     end
-
-    it 'assigns a new Url to @url' do
-      expect(assigns(:url)).to eq(url)
-    end
   end
 
   describe '#edit' do
@@ -73,59 +67,43 @@ RSpec.describe UrlsController, type: :controller do
   describe '#create' do
     context 'with valid details' do
       it 'creates a new url' do
-        expect(Url.all.count).to eq(1)
+        expect { post :create, url: { 
+          long_url: "https://andela.com", 
+          short_url: "andela" } 
+        }
+        .to change(Url, :count).by(1)
       end
-
-      xit { should set_flash[:short_url] }
-
-      xit { should set_flash[:notice] }
     end
 
     context 'with invalid details' do
-      #  before(:each) do post :create, url: {
-      #   long_url: "an_invalid_url",
-      #   short_url: url.short_url
-      #   }
-      # end
-
-      xit 'does not create a new url' do
-        expect(Url.all.count).to eq(0)
+      it 'does not create a new url' do
+        expect { post :create, url: { 
+          long_url: "invalid_url", 
+          short_url: "url.short_url" } 
+        }
+        .to_not change{ Url.count }
       end
-
-      xit { should set_flash[:notice] }
     end
   end
 
   describe '#update' do
     context 'with valid details' do
-      # before(:each) do post :update, user: {
-      #   long_url: "https://andela.com",
-      #   short_url: "andela"
-      # }
-      # end
-
       xit 'redirects to the :details view' do
+        put :update, id: url.id, url: {
+          long_url: "https://andela.com/apply"
+        }
+        expect(Url.last.long_url).to eq(long_url)
         expect(response).to redirect_to details_path
-      end
-
-      xit 'sets flash with update_success message' do
-        it { should set_flash[:notice] }
       end
     end
 
     context 'with invalid details' do
-      # before(:each) do post :update, user: {
-      #   long_url: "invalid_url",
-      #   short_url: "andela"
-      # }
-      # end
-
       xit 're-renders the :edit view' do
+        put :update, url: {
+          long_url: "invalid_url",
+          short_url: "andela"
+        }
         expect(response).to render_template 'edit'
-      end
-
-      xit 'sets flash with update_failure message' do
-        it { should set_flash[:notice] }
       end
     end
   end
@@ -172,5 +150,8 @@ RSpec.describe UrlsController, type: :controller do
       get :inactive
       expect(response).to render_template 'inactive'
     end
+  end
+
+  xdescribe "#destroy" do
   end
 end

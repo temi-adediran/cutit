@@ -3,12 +3,27 @@ require 'rails_helper'
 RSpec.describe UsersController, type: :controller do
   let(:user) { build(:user) }
   let(:valid_attributes) do
-    { user: {
+    { 
+      user: 
+      {
       username: user.username,
       email: user.email,
       password: 'password',
       password_confirmation: 'password'
-    } }
+      } 
+    }
+  end
+
+  let(:invalid_attributes) do
+    { 
+      user: 
+      {
+        username: user.username,
+        email: nil,
+        password: "password",
+        password_confirmation: "invalid_password"
+      }
+    }
   end
 
   it { should use_before_action(:redirect_to_dashboard) }
@@ -22,36 +37,24 @@ RSpec.describe UsersController, type: :controller do
 
   describe '#create' do
     context 'with valid details' do
-      before(:each) { post :create, valid_attributes }
-
       it 'creates a new user' do
-        expect(User.all.count).to eq(1)
+        expect { post :create, valid_attributes }.to change{ User.count }.by(1)
       end
 
-      it 'logs the user in successfully' do
+      it 'logs in user successfully and redirects to the dashboard' do
+        post :create, valid_attributes
         expect(session[:user_id]).to eq(assigns(:user).id)
-      end
-
-      it 'redirects to the user dashboard' do
         expect(response).to redirect_to dashboard_path
       end
     end
 
     context 'with invalid details' do
-      before(:each) do
-        post :create, user: {
-          username: user.username,
-          email: nil,
-          password: user.password,
-          password_confirmation: user.password
-        }
-      end
-
       it 'does not create a new user' do
-        expect { User.create }.to_not change { User.count }
+        expect { post :create, invalid_attributes }.to_not change { User.all.count }
       end
 
       it 're-renders the new method' do
+        post :create, invalid_attributes
         expect(response).to render_template(:new)
       end
     end

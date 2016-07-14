@@ -28,9 +28,9 @@ RSpec.describe Url, type: :model do
   describe '.popular_links' do
     it 'order urls based on highest number of visits' do
       Url.destroy_all
-      themmy = create(:url, click_count: 1)
-      adim = create(:url, click_count: 2)
-      tj = create(:url, click_count: 3)
+      themmy = create(:url, visits_count: 1)
+      adim = create(:url, visits_count: 2)
+      tj = create(:url, visits_count: 3)
 
       expect(Url.popular_links).to eq([tj, adim, themmy])
     end
