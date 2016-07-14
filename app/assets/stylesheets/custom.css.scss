@@ -9,10 +9,10 @@ $gray-medium-light: #eaeaea;
 /* universal */
 
 body {
-  background-image: -webkit-linear-gradient(bottom, rgba(0,0,0,.5) 80%, rgba(0,0,0,.5) 50%), image-url('bg1.jpg');
+  background-image: -webkit-linear-gradient(bottom, rgba(0,0,0,.5) 80%, rgba(0,0,0,.5) 50%), image-url("bg1.jpg");
   background-size: cover;
   background-attachment: fixed;
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
   font-size: 14px;
   color: #777;
 }
@@ -77,11 +77,11 @@ p {
 /* header */
 
 .homepage .wrapper {
-  background-image: -webkit-linear-gradient(bottom, rgba(85,62,78,.7) 80%, rgba(85,62,78,.7) 50%), image-url('bg1.jpg');
-  background-image: -moz-linear-gradient(bottom, rgba(85,62,78,.7) 80%, rgba(85,62,78,.7) 50%), image-url('bg.jpg');
-  background-image: -ms-linear-gradient(bottom, rgba(85,62,78,.7) 80%, rgba(85,62,78,.7) 50%), image-url('bg.jpg');
-  background-image: -o-linear-gradient(bottom, rgba(85,62,78,.7) 80%, rgba(85,62,78,.7) 50%), image-url('bg.jpg');
-  background-image: linear-gradient(bottom, rgba(85,62,78,.7) 80%, rgba(85,62,78,.7) 50%), image-url('bg.jpg');
+  background-image: -webkit-linear-gradient(bottom, rgba(85,62,78,.7) 80%, rgba(85,62,78,.7) 50%), image-url("bg1.jpg");
+  background-image: -moz-linear-gradient(bottom, rgba(85,62,78,.7) 80%, rgba(85,62,78,.7) 50%), image-url("bg.jpg");
+  background-image: -ms-linear-gradient(bottom, rgba(85,62,78,.7) 80%, rgba(85,62,78,.7) 50%), image-url("bg.jpg");
+  background-image: -o-linear-gradient(bottom, rgba(85,62,78,.7) 80%, rgba(85,62,78,.7) 50%), image-url("bg.jpg");
+  background-image: linear-gradient(bottom, rgba(85,62,78,.7) 80%, rgba(85,62,78,.7) 50%), image-url("bg.jpg");
   background-size: cover;
   background-attachment: scroll;
   color: #fff;
@@ -239,7 +239,7 @@ input {
 .popular-links, .recently-added-links, .influential-users {
 
   .panel {
-    background-image: image-url('bg2.svg');
+    background-image: image-url("bg2.svg");
     background-repeat: no-repeat;
     background-position: bottom; 
     border: 0;

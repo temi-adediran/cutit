@@ -13,7 +13,6 @@ class ApplicationController < ActionController::Base
     redirect_to dashboard_path if logged_in?
   end
 
-
   def log_in(user)
     session[:user_id] = user.id
   end
