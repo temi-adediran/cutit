@@ -9,8 +9,7 @@
       <nav>
         <ul class="nav navbar-nav navbar-right">
         <% if logged_in? %>
-          <li> <a>Welcome, <%= current_user.username %> </a></li>
-          <li><%= link_to "Log Out", logout_path, method: :delete %></li>
+          <li><%= link_to "Log Out", logout_path, class: "btn btn-default signout-btn", method: :delete %></li>
         <% else %>
           <li><%= link_to "Log In", login_path, class: "btn btn-default login-btn" %></li>
           <li><%= link_to "Sign Up", signup_path, class: "btn btn-default signup-btn" %></li>
@@ -21,5 +20,6 @@
   </header>
 
   <%= render "urls/partials/url_jumbotron" if current_page?(root_path) %> 
+  <%= render "urls/partials/dashboard_form" if current_page?(dashboard_path) %>
 </div>
 

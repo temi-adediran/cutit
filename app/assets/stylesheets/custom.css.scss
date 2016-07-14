@@ -9,16 +9,31 @@ $gray-medium-light: #eaeaea;
 /* universal */
 
 body {
-  background-image: -webkit-linear-gradient(bottom, rgba(0,0,0,.5) 80%, rgba(0,0,0,.5) 50%), image-url("bg1.jpg");
-  background-size: cover;
+  background: #614385;
+  background: -webkit-linear-gradient(to left, #614385 , #516395);
+  background: linear-gradient(to left, #614385 , #516395);
   background-attachment: fixed;
   font-family: "Open Sans", sans-serif;
   font-size: 14px;
-  color: #777;
+  color: #fff;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+
+  > .container {
+    flex: 1 0 auto;
+  }
 }
 
 .homepage {
   background-image: none;
+  display: block;
+  color: #777;
+}
+
+.dashboard {
+  background: transparent;
+  color: #777;
 }
 
 ::selection {
@@ -93,6 +108,18 @@ p {
   }
 }
 
+.dashboard .wrapper {
+  background: -webkit-linear-gradient(to left, #614385 , #516395);
+  background: linear-gradient(to left, #614385 , #516395);
+  margin-bottom: 25px;
+
+  .jumbotron {
+    background-color: transparent;
+    padding-top: 0;
+    color: #fff;
+  }
+}
+
 .navbar {
   padding-top: 35px;
   padding-bottom: 20px;
@@ -110,13 +137,21 @@ p {
 }
 
 .navbar-right {
+  .welcome-message {
+    color: #eee;
+
+    &:hover {
+      background: transparent;
+    }
+  }
+
   .btn {
     width: 110px;
     margin-left: 7px;
     margin-right: 7px;
     text-transform: uppercase;
 
-    &.login-btn {
+    &.login-btn, &.signout-btn {
       background-color: transparent;
       color: #fff;
     }
@@ -131,13 +166,25 @@ p {
   background-color: #521414;
 }
 
+.more-info {
+  color: #fff;
+}
+
+.statistics {
+  color: #777;
+
+  th {
+    color: #fff;
+  }
+}
+
 
 
 footer {
   margin-top: 45px;
   padding-top: 15px;
   padding-bottom: 15px;
-  border-top: 1px solid $gray-medium-light;
+  border-top: 1px solid #516395;
   
   a {
     color: $gray;
@@ -204,6 +251,27 @@ footer {
       transform: translateX(90px);
       transition-duration: 0.6s;
     }
+  }
+}
+
+#user_url_form {
+  button {
+    border: 0;
+    background: transparent;
+  }
+}
+
+.edit_url {
+  color: #777;
+}
+
+#login_form, #new_user {
+  color: #777;
+  margin-bottom: 10px;
+
+
+  & + p a {
+    color: #fff;
   }
 }
 
