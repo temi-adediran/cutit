@@ -24,6 +24,7 @@ module MessageHelper
   end
 
   def url_failure
-    "Url was not successfully shortened. Pls enter the correct url format or a new vanity string!"
+    "Url was not successfully shortened. 
+    Pls enter the correct url format or a new vanity string!" 
   end
 end
