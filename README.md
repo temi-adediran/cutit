@@ -1,6 +1,4 @@
-# Cutit 
-[![Build Status](https://travis-ci.org/andela-tfowotade/cutit.svg?branch=develop)](https://travis-ci.org/andela-tfowotade/cutit)
-[![Coverage Status](https://coveralls.io/repos/github/andela-tfowotade/cutit/badge.svg?branch=develop)](https://coveralls.io/github/andela-tfowotade/cutit?branch=develop)
+# Cutit  [![Build Status](https://travis-ci.org/andela-tfowotade/cutit.svg?branch=develop)](https://travis-ci.org/andela-tfowotade/cutit) [![Coverage Status](https://coveralls.io/repos/github/andela-tfowotade/cutit/badge.svg?branch=develop)](https://coveralls.io/github/andela-tfowotade/cutit?branch=develop)
 
 ### Overview
 
