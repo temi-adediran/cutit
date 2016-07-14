@@ -1,4 +1,4 @@
-# Cutit
+# Cutit [![Build Status](https://travis-ci.org/andela-tfowotade/cutit.svg?branch=develop)](https://travis-ci.org/andela-tfowotade/cutit)
 
 ### Overview
 

@@ -6,9 +6,13 @@ class User < ActiveRecord::Base
     with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/
   }
   validates :password_digest, presence: true, length: { minimum: 6 }
-
-  before_save { self.email = email.downcase }
   has_secure_password
+
+  before_save :downcase_email
+
+  def downcase_email
+    self.email = email.downcase
+  end
 
   def self.influential_users
     order(urls_count: :desc).limit(5)

@@ -1,5 +1,3 @@
-require_relative '../helpers/message_helper'
-
 class UrlsController < ApplicationController
   include MessageHelper
 
@@ -37,7 +35,7 @@ class UrlsController < ApplicationController
     else
       flash[:notice] = url_failure
     end
-
+ 
     redirect_to_dashboard
     redirect_to_root
   end
@@ -62,11 +60,9 @@ class UrlsController < ApplicationController
     url = Url.find_by(short_url: params[:short_url])
 
     return redirect_to deleted_path if url.nil?
-
     return redirect_to inactive_path unless url.status
 
-    url.increment! :click_count
-    store_visit
+    url.store_visit(user_agent)
 
     redirect_to url.long_url
   end
