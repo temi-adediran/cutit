@@ -1,7 +1,5 @@
 class SessionsController < ApplicationController
-  include MessageHelper
-
-  before_action :redirect_to_dashboard, only: :new, if: :logged_in?
+  before_action :redirect_to_dashboard, only: :new
 
   def new
   end
@@ -12,7 +10,7 @@ class SessionsController < ApplicationController
       log_in user
       redirect_to dashboard_path
     else
-      flash[:alert] = invalid_login
+      flash[:alert] = MessageService.invalid_login
       render :new
     end
   end

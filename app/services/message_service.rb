@@ -1,29 +1,25 @@
-module MessageHelper
-  def update_success
+class MessageService
+  def self.update_success
     "Url was successfully updated."
   end
 
-  def update_failure
+  def self.update_failure
     "Url was not successfully updated. Please try again!"
   end
 
-  def destroyed
+  def self.destroyed
     "Url was successfully destroyed."
   end
 
-  def invalid_login
+  def self.invalid_login
     "Invalid email/password combination"
   end
 
-  def short_url
-    short_url_url(short_url: @url.short_url)
-  end
-
-  def url_success
+  def self.url_success
     "Url created successfully."
   end
 
-  def url_failure
+  def self.url_failure
     "Url was not successfully shortened. 
     Pls enter the correct url format or a new vanity string!" 
   end

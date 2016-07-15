@@ -35,4 +35,17 @@ RSpec.describe Url, type: :model do
       expect(Url.popular_links).to eq([tj, adim, themmy])
     end
   end
+
+  describe ".recently_added_links" do
+    it "order urls based on how recent they were created" do
+      Url.destroy_all
+      tj = create(:url)
+      sleep(1.second)
+      adim = create(:url)
+      sleep(1.second)
+      themmy = create(:url)
+
+      expect(Url.recently_added_links).to eq([themmy, adim, tj])
+    end
+  end
 end

@@ -1,4 +1,4 @@
-# Cutit  [![Build Status](https://travis-ci.org/andela-tfowotade/cutit.svg?branch=develop)](https://travis-ci.org/andela-tfowotade/cutit) [![Coverage Status](https://coveralls.io/repos/github/andela-tfowotade/cutit/badge.svg?branch=develop)](https://coveralls.io/github/andela-tfowotade/cutit?branch=develop)
+# Cutit  [![Build Status](https://travis-ci.org/andela-tfowotade/cutit.svg?branch=develop)](https://travis-ci.org/andela-tfowotade/cutit) [![Coverage Status](https://coveralls.io/repos/github/andela-tfowotade/cutit/badge.svg?branch=develop)](https://coveralls.io/github/andela-tfowotade/cutit?branch=develop) [![Code Climate](https://codeclimate.com/repos/5788eb5212cba738bc001ac3/badges/01d9639ea4c194599b12/gpa.svg)](https://codeclimate.com/repos/5788eb5212cba738bc001ac3/feed)
 
 ### Overview
 
@@ -79,4 +79,5 @@ $  bundle exec rspec
 * No API support
 * No Ruby gem
 * No validation to check the existence of the Url
+* It allows Urls starting with "http://" or "https://" only.
 * No measures to return the same shortened URLs for long URLs that have already been shortened.

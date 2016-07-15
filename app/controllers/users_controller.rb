@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :redirect_to_dashboard, only: :new, if: :logged_in?
+  before_action :redirect_to_dashboard, only: :new
 
   def new
     @user = User.new
@@ -18,7 +18,11 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:username, :email, :password,
-                                 :password_confirmation)
+    params.require(:user).permit(
+                                 :username, 
+                                 :email, 
+                                 :password,
+                                 :password_confirmation
+                                 )
   end
 end

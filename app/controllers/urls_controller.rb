@@ -1,24 +1,24 @@
 class UrlsController < ApplicationController
-  include MessageHelper
-
   before_action :set_url, only: [:details, :edit, :update, :destroy]
   before_action :redirect_to_dashboard, only: :homepage
   before_action :redirect_to_root, only: [:dashboard, :details, :edit]
 
   def homepage
-    @recently_added_links = Url.recently_added
+    @recently_added_links = Url.recently_added_links
     @influential_users = User.influential_users
     @popular_links = Url.popular_links
   end
 
   def details
-    @url_visits = @url.visits.order(created_at: :desc)
+    @url_visits = @url.visits
+                      .order(created_at: :desc)
                       .paginate(page: params[:page], per_page: 10)
   end
 
   def dashboard
     @url = Url.new
-    @user_urls = current_user.urls.order(created_at: :desc)
+    @user_urls = current_user.urls
+                             .order(created_at: :desc)
                              .paginate(page: params[:page], per_page: 10)
   end
 
@@ -30,10 +30,10 @@ class UrlsController < ApplicationController
     @url.user_id = current_user.id if current_user
 
     if @url.save
-      flash[:notice] = url_success
-      flash[:short_url] = short_url
+      flash[:notice] = MessageService.url_success
+      flash[:short_url] = short_url_url(short_url: @url.short_url)
     else
-      flash[:notice] = url_failure
+      flash[:notice] = MessageService.url_failure
     end
 
     redirect_to_dashboard
@@ -42,18 +42,16 @@ class UrlsController < ApplicationController
 
   def update
     if @url.update(url_params)
-      redirect_to details_path,
-                  notice: update_success
+      redirect_to details_path, notice: MessageService.update_success
     else
-      render :edit,
-             notice: update_failure
+      render :edit, notice: MessageService.update_failure
     end
   end
 
   def destroy
     @url.destroy
 
-    redirect_to dashboard_path, notice: destroyed
+    redirect_to dashboard_path, notice: MessageService.destroyed
   end
 
   def redirect_url
