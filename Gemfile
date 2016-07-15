@@ -45,12 +45,12 @@ group :development, :test do
   gem 'simplecov', require: false
   gem 'database_cleaner'
   gem 'shoulda-matchers', '~> 3.1'
-  gem 'sqlite3'
 end
 
 group :development do
   gem 'web-console', '~> 2.0'
   gem 'spring'
+  gem 'sqlite3'
 end
 
 group :production do
