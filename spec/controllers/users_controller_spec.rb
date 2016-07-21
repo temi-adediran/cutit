@@ -38,7 +38,7 @@ RSpec.describe UsersController, type: :controller do
   describe "#create" do
     context "with valid details" do
       it "creates a new user" do
-        expect { post :create, valid_attributes }.to change { User.count }.by(1)
+        expect { post :create, valid_attributes }.to change(User, :count).by(1)
       end
 
       it "logs in user successfully and redirects to the dashboard" do
@@ -60,7 +60,12 @@ RSpec.describe UsersController, type: :controller do
     end
 
     it "permits only the required fields" do
-      should permit(:username, :email, :password, :password_confirmation)
+      should permit(
+        :username, 
+        :email, 
+        :password, 
+        :password_confirmation
+        )
         .for(:create, params: valid_attributes).on(:user)
     end
   end

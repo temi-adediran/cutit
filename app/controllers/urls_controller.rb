@@ -56,7 +56,7 @@ class UrlsController < ApplicationController
 
   def redirect_url
     url = Url.find_by(short_url: params[:short_url])
-
+    
     return redirect_to deleted_path if url.nil?
     return redirect_to inactive_path unless url.status
 

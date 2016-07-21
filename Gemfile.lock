@@ -250,7 +250,7 @@ DEPENDENCIES
   coffee-rails (~> 4.1.0)
   coveralls
   database_cleaner
-  factory_girl_rails
+  factory_girl_rails (~> 4.0)
   faker
   font-awesome-sass
   jbuilder (~> 2.0)

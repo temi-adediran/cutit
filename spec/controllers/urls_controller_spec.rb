@@ -92,21 +92,22 @@ RSpec.describe UrlsController, type: :controller do
 
   describe "#update" do
     context "with valid details" do
-      xit "redirects to the :details view" do
-        put :update, id: url.id, url: {
+      it "updates the url" do
+        put :update, id: url, url: {
           long_url: "https://andela.com/apply"
         }
-        expect(Url.last.long_url).to eq(long_url)
+        url.reload
+        expect(url.long_url).to eq("https://andela.com/apply")
         expect(response).to redirect_to details_path
       end
     end
 
     context "with invalid details" do
-      xit "re-renders the :edit view" do
-        put :update, url: {
-          long_url: "invalid_url",
-          short_url: "andela"
+      it "re-renders the :edit view" do
+        put :update, id: url, url: {
+          long_url: "invalid_url"
         }
+        expect(url.long_url).to_not eq("invalid_url")
         expect(response).to render_template "edit"
       end
     end
@@ -114,30 +115,35 @@ RSpec.describe UrlsController, type: :controller do
 
   describe "#redirect_url" do
     context "when url does not exist" do
-      xit "redirects to the :deleted view" do
+      it "redirects to the :deleted view" do
+        get :redirect_url,
+        short_url: "invalid"
+        expect(response).to redirect_to :deleted
       end
     end
 
     context "when url is inactive" do
-      xit "redirects to the :inactive view" do
+      it "redirects to the :inactive view" do
+        url.update(status: false)
+        get :redirect_url,
+        short_url: url.short_url
+
+        expect(response).to redirect_to :inactive
       end
     end
 
     context "when url is active" do
-      xit "assigns the short_url from the url params" do
+      before(:each) do 
+        get :redirect_url,
+        short_url: url.short_url
       end
 
-      xit "finds the short_url in the database table" do
+      it "redirects to the long_url" do
+        expect(response).to redirect_to url.long_url
       end
 
-      xit "redirects to the long_url" do
-      end
-
-      xit "increments the url's click_count" do
-        # expect(url.click_count).to eq(1)
-      end
-
-      xit "abstracts the statistics of the url visit" do
+      it "increments the url's click_count" do
+        expect(Visit.count).to eq(1)
       end
     end
   end
@@ -156,6 +162,10 @@ RSpec.describe UrlsController, type: :controller do
     end
   end
 
-  xdescribe "#destroy" do
+  describe "#destroy" do
+    it "deletes the url" do
+      delete :destroy, id: url
+      expect(Url.all).to_not include(url)
+    end
   end
 end

@@ -15,49 +15,31 @@ RSpec.describe SessionsController, type: :controller do
 
   describe "#create" do
     context "when email is invalid" do
-      before(:each) do
+      it "re-renders the page with error" do
         post :create, session: {
           email: "invalid_email@example.com", password: user.password
         }
-      end
-
-      it "renders the page with error" do
-        expect(flash[:alert]).to include "Invalid email/password combination"
-      end
-
-      it "renders the login form" do
         expect(response).to render_template(:new)
+        expect(flash[:alert]).to include "Invalid email/password combination"
       end
     end
 
     context "when password is invalid" do
-      before(:each) do
+      it "re-renders the new method with error" do
         post :create, session: {
           email: user.email, password: "invalid_password"
         }
-      end
-
-      it "renders the page with error" do
-        expect(flash[:alert]).to include "Invalid email/password combination"
-      end
-
-      it "re-renders the new method" do
         expect(response).to render_template(:new)
+        expect(flash[:alert]).to include "Invalid email/password combination"
       end
     end
 
     context "when authenticating with valid details" do
-      before(:each) do
+      it "logs the user in successfully" do
         post :create, session: {
           email: user.email, password: "password"
         }
-      end
-
-      it "logs the user in successfully" do
         expect(session[:user_id]).to eql user.id
-      end
-
-      it "redirects the user to the dashboard" do
         expect(response).to redirect_to dashboard_path
       end
     end
@@ -65,17 +47,11 @@ RSpec.describe SessionsController, type: :controller do
 
   describe "#destroy" do
     context "when user logs out" do
-      before(:each) do
+      it "logs the user out successfully" do
         delete :destroy, session: {
           email: user.email, password: user.password
         }
-      end
-
-      it "logs the user out successfully" do
         expect(session[:user_id]).to eql nil
-      end
-
-      it "redirects the user to the homepage" do
         expect(response).to redirect_to root_path
       end
     end
