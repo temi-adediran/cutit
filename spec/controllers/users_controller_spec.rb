@@ -4,25 +4,16 @@ RSpec.describe UsersController, type: :controller do
   let(:user) { build(:user) }
   let(:valid_attributes) do
     {
-      user:
-      {
-        username: user.username,
-        email: user.email,
-        password: "password",
+      user: user.attributes.merge({
+        password: "password", 
         password_confirmation: "password"
-      }
+      })
     }
   end
 
   let(:invalid_attributes) do
     {
-      user:
-      {
-        username: user.username,
-        email: nil,
-        password: "password",
-        password_confirmation: "invalid_password"
-      }
+      user: user.attributes.merge({email: nil})
     }
   end
 
@@ -50,7 +41,8 @@ RSpec.describe UsersController, type: :controller do
 
     context "with invalid details" do
       it "does not create a new user" do
-        expect { post :create, invalid_attributes }.to_not change { User.all.count }
+        expect { post :create, invalid_attributes }
+        .to_not change { User.all.count }
       end
 
       it "re-renders the new method" do
@@ -60,7 +52,7 @@ RSpec.describe UsersController, type: :controller do
     end
 
     it "permits only the required fields" do
-      should permit(
+      expect(subject).to permit(
         :username, 
         :email, 
         :password, 
