@@ -40,7 +40,7 @@ group :development, :test do
   gem 'byebug'
   gem 'pry-rails'
   gem 'capybara'
-  gem "factory_girl_rails", "~> 4.0"
+  gem 'factory_girl_rails', '~> 4.0'
   gem 'faker'
   gem 'simplecov', require: false
   gem 'database_cleaner'

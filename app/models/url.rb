@@ -5,8 +5,8 @@ class Url < ActiveRecord::Base
   URl_MATCH = /\A(https?:\/\/)?([a-z0-9]+\.)?[a-z0-9\-]+\.[a-z]+.+[^\W\_]\z/
 
   validates :long_url, presence: true, format: { with: URl_MATCH }
-  validates :short_url, 
-            uniqueness: true, 
+  validates :short_url,
+            uniqueness: true,
             presence: true,
             exclusion: { in: %w(signup login urls dashboard logout
                                 update create destroy homepage url details) }
@@ -33,11 +33,11 @@ class Url < ActiveRecord::Base
 
   def generate_short_url
     loop
-      self.short_url = SecureRandom.urlsafe_base64(4).gsub(/[^A-Z0-9]/i, "")
+    self.short_url = SecureRandom.urlsafe_base64(4).gsub(/[^A-Z0-9]/i, '')
     break while Url.exists?(short_url: short_url)
   end
 
   def convert_to_snake_case
-    self.short_url = short_url.tr(" ", "_") if short_url
+    self.short_url = short_url.tr(' ', '_') if short_url
   end
 end
