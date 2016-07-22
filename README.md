@@ -2,7 +2,7 @@
 
 ### Overview
 
-This is a URL shortening service built with Ruby on rails. The application allows you shorten your long URLs and also provide a slug to provide more information about your shortened URLs. It is a clone of the popular 
+This is a URL shortening service built with Ruby on rails. The application allows you shorten your long URLs and also provide a slug to provide more information about your shortened URLs. It is a clone of the popular <a href="https://bitly.com/">Bitly</a>. 
 
 ### Features
 
