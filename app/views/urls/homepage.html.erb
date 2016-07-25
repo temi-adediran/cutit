@@ -1,0 +1,34 @@
+<div class="row links-info">
+  <div class="col-md-4 recently-added-links">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        Recently Added Links <i class="fa fa-link fa-lg"></i></div>
+      <ul class="list-group">
+        <%= render "urls/partials/display_recently_added_links" %>
+      </ul>
+    </div>
+  </div>
+
+  <div class="col-md-4 influential-users">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        Influential Users <i class="fa fa-users fa-lg"></i>
+      </div>
+      <ul class="list-group">
+        <%= render "urls/partials/display_influential_users" %>
+      </ul>
+    </div>
+  </div>
+
+  <div class="col-md-4 popular-links">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        Popular Links <i class="fa fa-trophy fa-lg"></i>
+      </div>
+      <ul class="list-group">
+        <%= render "urls/partials/display_popular_links" %>
+      </ul>
+    </div>
+  </div>
+</div>
+

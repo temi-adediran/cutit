@@ -1,0 +1,16 @@
+<table class="table table-striped"> 
+  <thead> 
+    <tr> 
+      <th></th> 
+      <th>Long Url</th> 
+      <th>Short Url</th> 
+      <th>Created</th> 
+    </tr> 
+  </thead>
+
+  <tbody>
+    <%= render "urls/partials/user_urls" %>
+  </tbody> 
+</table>
+
+<%= will_paginate @user_urls %>

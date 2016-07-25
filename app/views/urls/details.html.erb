@@ -1,0 +1,55 @@
+<p>
+  <strong>Long url:</strong>
+  <%= @url.long_url %>
+</p>
+
+<p>
+  <strong>Short url:</strong>
+  <%= @url.short_url %>
+</p>
+
+<p>
+  <strong>Created:</strong>
+  <%= time_ago_in_words(@url.created_at) + " ago" %>
+</p>
+
+<p>
+  <strong>Number of clicks:</strong>
+  <%= @url.visits_count %>
+</p>
+
+<p>
+  <strong>Link Status:</strong>
+  <% if @url.status %>
+    Active
+  <% else %>
+    Inactive
+  <% end %>
+</p>
+
+<%= link_to "Edit", edit_url_path(@url), class: "more-info"  %> |
+<%= link_to "Dashboard", dashboard_path, class: "more-info" %>
+
+<h3>Statistics</h3>
+
+<table class="table table-striped statistics"> 
+  <thead> 
+    <tr> 
+      <th></th> 
+      <th>Date</th> 
+      <th>Browser</th> 
+      <th>Browser Version</th>
+      <th>Platform</th> 
+      <th>OS<th>
+    </tr> 
+  </thead>
+
+  <tbody>
+    <%= render "urls/partials/url_visits" %>
+  </tbody> 
+</table>
+
+<%= will_paginate @url_visits %>
+
+
+

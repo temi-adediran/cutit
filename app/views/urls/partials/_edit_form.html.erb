@@ -1,0 +1,27 @@
+<div class="row">    
+  <div class="col-md-8 col-md-offset-2">
+    <div class="panel panel-default">
+      <div class="panel-body"> 
+        <%= form_for(@url) do |f| %>
+          <%=render "shared/url_error_messages" %>
+
+          <div class="field">Long Url
+            <%= f.text_field :long_url, class: "form-control" %>
+          </div>
+          <div class="field">Vanity String
+            <%= f.text_field :short_url, class: "form-control" %>
+          </div>
+          <div class="ui toggle checkbox">
+            <%= f.check_box :status %>
+            <label></label>
+          </div>
+
+          <div class="actions">
+            <%= f.submit "Save", class: "btn btn-primary" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+</div>

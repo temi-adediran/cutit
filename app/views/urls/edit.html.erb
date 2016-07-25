@@ -1,6 +1,6 @@
-<h1>Editing Url</h1>
+<h1>Edit Url</h1>
 
-<%= render 'form' %>
+<%= render "urls/partials/edit_form" %>
 
-<%= link_to 'Show', @url %> |
-<%= link_to 'Back', urls_path %>
+<%= link_to "Details", details_path(@url), class: "more-info" %> |
+<%= link_to "Dashboard", dashboard_path, class: "more-info" %>

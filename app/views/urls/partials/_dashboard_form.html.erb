@@ -1,0 +1,30 @@
+<div class="jumbotron intro">
+  <h1 class="welcome-message">
+    Welcome, <%= current_user.username %>
+  </h1>
+
+  <div class="row">    
+    <div class="col-md-8 col-md-offset-2">
+      <%= form_for(@url, html: { class: "form-inline text-center", id: "user_url_form" }) do |f| %>
+        <%=render "shared/url_message" %>
+
+        <div class="form-group">
+          <div class="input-group">
+            <%= f.text_field :long_url, class: "form-control", placeholder: "Enter your url...", required: true %>
+          </div>
+
+          <div class="input-group">
+            <%= f.text_field :short_url, class: "form-control", placeholder: "Vanity String(optional)" %>
+          </div>
+
+          <div class="input-group">
+            <div class="input-group-addon">
+              <%= f.button "Cutit" %>
+            </div>
+          </div>
+        </div>
+
+      <% end %>
+    </div>
+  </div>
+</div>

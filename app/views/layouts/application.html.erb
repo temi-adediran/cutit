@@ -1,14 +1,21 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Cutit</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
+  <head>
+    <title>Cutit</title>
+    <%= stylesheet_link_tag "https://fonts.googleapis.com/css?family=Pacifico|Open+Sans:400,700,300", media: "all" %>
+    <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+    <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body class=<%= class_name %>>
 
-<%= yield %>
+    <%= render "layouts/partials/header" %>
 
-</body>
+    <div class="container">
+      <%= yield %>
+    </div>
+
+    <%= render "layouts/partials/footer" %>
+
+  </body>
 </html>

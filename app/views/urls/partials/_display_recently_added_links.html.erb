@@ -1,0 +1,5 @@
+<% @recently_added_links.each do |url|%> 
+  <li class="list-group-item">
+    <i class="fa fa-globe"></i> <%= "#{root_url}#{url.short_url}" %>
+  </li>
+<% end %>

@@ -1,74 +1,83 @@
 class UrlsController < ApplicationController
-  before_action :set_url, only: [:show, :edit, :update, :destroy]
+  before_action :set_url, only: [:details, :edit, :update, :destroy]
+  before_action :redirect_to_dashboard, only: :homepage
+  before_action :redirect_to_root, only: [:dashboard, :details, :edit]
 
-  # GET /urls
-  # GET /urls.json
-  def index
-    @urls = Url.all
+  def homepage
+    @recently_added_links = Url.recently_added_links
+    @influential_users = User.influential_users
+    @popular_links = Url.popular_links
   end
 
-  # GET /urls/1
-  # GET /urls/1.json
-  def show
+  def details
+    @url_visits = @url.visits
+                      .order(created_at: :desc)
+                      .paginate(page: params[:page], per_page: 10)
   end
 
-  # GET /urls/new
-  def new
+  def dashboard
     @url = Url.new
+    @user_urls = current_user.urls
+                             .order(created_at: :desc)
+                             .paginate(page: params[:page], per_page: 10)
   end
 
-  # GET /urls/1/edit
   def edit
   end
 
-  # POST /urls
-  # POST /urls.json
   def create
     @url = Url.new(url_params)
+    @url.user_id = current_user.id if current_user
 
-    respond_to do |format|
-      if @url.save
-        format.html { redirect_to @url, notice: 'Url was successfully created.' }
-        format.json { render :show, status: :created, location: @url }
-      else
-        format.html { render :new }
-        format.json { render json: @url.errors, status: :unprocessable_entity }
-      end
+    if @url.save
+      flash[:notice] = MessageService.url_success
+      flash[:short_url] = short_url_url(short_url: @url.short_url)
+    else
+      flash[:notice] = MessageService.url_failure
     end
+
+    redirect_to_dashboard
+    redirect_to_root
   end
 
-  # PATCH/PUT /urls/1
-  # PATCH/PUT /urls/1.json
   def update
-    respond_to do |format|
-      if @url.update(url_params)
-        format.html { redirect_to @url, notice: 'Url was successfully updated.' }
-        format.json { render :show, status: :ok, location: @url }
-      else
-        format.html { render :edit }
-        format.json { render json: @url.errors, status: :unprocessable_entity }
-      end
+    if @url.update(url_params)
+      redirect_to details_path, notice: MessageService.update_success
+    else
+      render :edit, notice: MessageService.update_failure
     end
   end
 
-  # DELETE /urls/1
-  # DELETE /urls/1.json
   def destroy
     @url.destroy
-    respond_to do |format|
-      format.html { redirect_to urls_url, notice: 'Url was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+
+    redirect_to dashboard_path, notice: MessageService.destroyed
+  end
+
+  def redirect_url
+    url = Url.find_by(short_url: params[:short_url])
+
+    return redirect_to deleted_path if url.nil?
+    return redirect_to inactive_path unless url.status
+
+    url.store_visit(user_agent)
+
+    redirect_to url.long_url
+  end
+
+  def inactive
+  end
+
+  def deleted
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_url
-      @url = Url.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def url_params
-      params.require(:url).permit(:long_url, :short_url)
-    end
+  def set_url
+    @url ||= Url.find(params[:id])
+  end
+
+  def url_params
+    params.require(:url).permit(:long_url, :short_url, :status)
+  end
 end
